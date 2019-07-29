@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+
+<head th:replace="fragments :: head">
+    <meta charset="UTF-8" />
+</head>
+
+<nav th:replace="fragments :: navigation"></nav>
+
+<body class="container">
+
+<h1 th:text="${title}">Default Title</h1>
+
+<form method="post" style="max-width:600px;">
+
+
+    <div class="form-group">
+        <label th:for="userTotal">Your total: </label>
+        <input class="form-control" type="text" name="userTotal" />
+        </div>
+    <div class="form-group">
+        <label th:for="userWeightclass">Your weight class: </label>
+        <select name="userWeightclass">
+            <option>45kg</option>
+            <option>49kg</option>
+            <option>55kg</option>
+            <option>59kg</option>
+            <option>64kg</option>
+            <option>71kg</option>
+            <option>76kg</option>
+            <option>81kg</option>
+            <option>87kg</option>
+            <option>87+kg</option>
+            <option>55kg M</option>
+            <option>61kg</option>
+            <option>67kg</option>
+            <option>73kg</option>
+            <option>81kg M</option>
+            <option>89kg</option>
+            <option>96kg</option>
+            <option>103kg</option>
+            <option>109kg</option>
+            <option>109+kg</option>
+        </select>
+    </div>
+
+
+    <input type="submit" value="Do I Qualify?" />
+</form>
+</body>
+</html>
