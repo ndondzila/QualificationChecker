@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+
+<head th:replace="fragments :: head">
+</head>
+
+<nav th:replace="fragments :: navigation"></nav>
+
+<body class="container">
+
+<h1 th:text="${title}">Default Title</h1>
+
+<form method="post" th:object="${user}" style="width:600px;">
+
+    <div class="form-group">
+        <label th:for="snatch">Snatch:</label>
+        <input class="form-control" type="text" />
+    </div>
+    <div class="form-group">
+        <label th:for="cleanJerk">Clean and jerk:</label>
+        <input class="form-control" type="text" />
+    </div>
+    <div class="form-group">
+        <label th:for="squat">Squat:</label>
+        <input class="form-control" type="text" />
+    </div>
+    <div class="form-group">
+        <label th:for="frontSquat">Front squat:</label>
+        <input class="form-control" type="text" />
+    </div>
+    <div class="form-group">
+        <label th:for="total">Total:</label>
+        <input class="form-control" type="text" />
+    </div>
+    <div class="form-group">
+        <label th:for="cleanDL">Clean deadlift:</label>
+        <input class="form-control" type="text" />
+    </div>
+    <div class="form-group">
+        <label th:for="snatchDL">Snatch deadlift:</label>
+        <input class="form-control" type="text" />
+    </div>
+
+    <input type="submit" value="Update lifts" />
+
+</form>
+
+</body>
+</html>
