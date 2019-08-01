@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+
+<head th:replace="fragments :: head">
+    <meta charset="UTF-8" />
+</head>
+
+<nav th:replace="fragments :: navigation"></nav>
+
+<body class="container">
+
+<h1 th:text="${title}">Default Title</h1>
+<h2>With a total of <span th:text="${total}"></span>kg at <span th:text="${bw}"></span>,</h2>
+<br/>
+<h2 th:if="(${level}==n)" style="max-width:600px;">You qualify for all national meets! Congratulations!</h2>
+<h2 th:if="(${level}==a)" style="max-width:600px;">You qualify for the American Open Finals as well as Series events!</h2>
+<h2 th:if="(${level}==s)" style="max-width:600px;">You qualify for the American Open Series events!</h2>
+<h2 th:if="(${level}==0)" style="max-width:600px;">You are not yet qualified, but keep working hard!</h2>
+</body>
+</html>

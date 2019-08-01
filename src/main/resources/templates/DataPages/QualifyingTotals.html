@@ -1,0 +1,34 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+
+<body class="container">
+
+<h1 th:text="${title}">Default Title</h1>
+
+<nav th:replace="fragments :: navigation"></nav>
+
+<table class="table">
+
+    <tr>
+        <th>Gender</th>
+        <th>Weightclass</th>
+        <th>AO Series Qualifying Total</th>
+        <th>AO Finals Qualifying Total</th>
+        <th>Nationals Qualifying Total</th>
+    </tr>
+
+    <tr th:each="weightclass : ${weightclasses}">
+        <td th:text="${weightclass.gender}"></td>
+        <td th:text="${weightclass.bodyweight}"></td>
+        <td th:text="${weightclass.AOseries}"></td>
+        <td th:text="${weightclass.AOfinals}"></td>
+        <td th:text="${weightclass.nationals}"></td>
+
+    </tr>
+
+</table>
+
+</body>
+</html>
