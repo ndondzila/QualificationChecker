@@ -5,30 +5,40 @@
 
 <body class="container">
 
+<nav th:replace="fragments :: data_navigation"></nav>
+
 <h1 th:text="${title}">Default Title</h1>
 
-<nav th:replace="fragments :: navigation"></nav>
-
 <table class="table">
-
     <tr>
-        <th>Gender</th>
         <th>Weightclass</th>
-        <th>AO Series Qualifying Total</th>
-        <th>AO Finals Qualifying Total</th>
-        <th>Nationals Qualifying Total</th>
+        <th>Qualifying total</th>
     </tr>
 
-    <tr th:each="weightclass : ${weightclasses}">
-        <td th:text="${weightclass.gender}"></td>
-        <td th:text="${weightclass.bodyweight}"></td>
-        <td th:text="${weightclass.AOseries}"></td>
-        <td th:text="${weightclass.AOfinals}"></td>
-        <td th:text="${weightclass.nationals}"></td>
+    <tr th:each="weightlifter : ${weightlifters}">
+        <td th:text="${weightlifter.toString()}"></td>
+        <td>Figure out how to list QT here</td>
 
     </tr>
-
 </table>
+
+<form method="post" th:object="${form}" style="width:600px;">
+    <div class="form-group">
+        <label th:for="weightlifterId">Weight class:</label>
+        <select th:field="*{weightlifterId}">
+            <option th:each="weightlifter : *{weightlifters}"
+                    th:value="${weightlifter.id}"
+                    th:text="${weightlifter.toString()}"></option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label th:for="total">Qualifying total: </label>
+        <input name="total" type="text"/>
+    </div>
+
+    <input type="submit" value="Update qualifying totals"/>
+
+</form>
 
 </body>
 </html>

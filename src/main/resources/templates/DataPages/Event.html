@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/" xmlns="http://www.w3.org/1999/html">
+
+<head th:replace="fragments :: head">
+</head>
+
+<body class="container">
+
+<nav th:replace="fragments :: data_navigation"></nav>
+
+<h1>Event information entry page</h1>
+
+<table class="table">
+    <tr>
+        <th>Event name</th>
+        <th>Year</th>
+        <th>Link to qualifying totals</th>
+    </tr>
+
+    <tr th:each="event : ${events}">
+        <td th:text="${event.name}"></td>
+        <td th:text="${event.year}"></td>
+        <td><a th:href="'/data/qualifyingtotals/'+ ${event.id}">Update qualifying totals</a></td>
+    </tr>
+</table>
+
+<form method="post" th:object="${event}" style="width:600px;">
+
+    <div class="form-group">
+        <label th:for="name">Event name:</label>
+        <input class="form-control" th:field="*{name}" type="text"/>
+    </div>
+
+    <div class="form-group">
+        <label th:for="year">Year: </label>
+        <input class="form-control" th:field="*{year}" type="text"/>
+    </div>
+
+    <input type="submit" value="Enter event information" />
+
+</form>
+
+</body>
+</html>
