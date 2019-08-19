@@ -14,11 +14,9 @@
         <th>Weightclass</th>
         <th>Qualifying total</th>
     </tr>
-
     <tr th:each="weightlifter : ${weightlifters}">
         <td th:text="${weightlifter.toString()}"></td>
-        <td>Figure out how to list QT here</td>
-
+        <td th:text="${weightlifter.record}"></td>
     </tr>
 </table>
 

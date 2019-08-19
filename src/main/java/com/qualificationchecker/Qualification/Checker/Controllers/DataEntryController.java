@@ -70,6 +70,7 @@ public class DataEntryController {
         Event event = eventDAO.findOne(eventId);
         AddQualifyingTotalsForm form = new AddQualifyingTotalsForm(event, weightlifterDAO.findAll());
         model.addAttribute("title", "Update " + event.toString() + " qualifying totals:");
+        model.addAttribute("weighlifters", weightlifterDAO.findAll());
         model.addAttribute("form", form);
 
         return "DataPages/QualifyingTotals";

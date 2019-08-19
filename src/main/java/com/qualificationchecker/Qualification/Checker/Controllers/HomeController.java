@@ -1,7 +1,6 @@
 package com.qualificationchecker.Qualification.Checker.Controllers;
 
 import com.qualificationchecker.Qualification.Checker.Models.Data.WeightlifterDAO;
-import com.qualificationchecker.Qualification.Checker.Models.Weightlifter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,9 +19,14 @@ public class HomeController {
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String displayhome(Model model) {
 
-        model.addAttribute("weightclasses", weightlifterDAO.findAll());
+        model.addAttribute("weightlifters", weightlifterDAO.findAll());
         model.addAttribute("title", "Qualification Checker");
 
+        return "Home/Home";
+    }
+
+    @RequestMapping(value = "", method = RequestMethod.POST)
+    public String processDisplayhome(Model model) {
         return "Home/Home";
     }
     

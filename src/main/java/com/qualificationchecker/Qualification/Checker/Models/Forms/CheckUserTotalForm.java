@@ -1,32 +1,30 @@
 package com.qualificationchecker.Qualification.Checker.Models.Forms;
 
-import com.qualificationchecker.Qualification.Checker.Models.Event;
 import com.qualificationchecker.Qualification.Checker.Models.Weightlifter;
 
 import javax.validation.constraints.NotNull;
 
-public class AddQualifyingTotalsForm {
+public class CheckUserTotalForm {
 
-    private Event event;
     private Iterable<Weightlifter> weightlifters;
-
-    @NotNull
-    private int eventId;
 
     @NotNull
     private int weightlifterId;
 
-    public AddQualifyingTotalsForm () {}
+    @NotNull
+    private int userTotal;
 
-    public AddQualifyingTotalsForm (Event event, Iterable<Weightlifter> weightlifters) {
-        this.event = event;
+    public CheckUserTotalForm (){}
+
+    public CheckUserTotalForm (Iterable<Weightlifter> weightlifters, int userTotal) {
         this.weightlifters = weightlifters;
+        this.userTotal = userTotal;
     }
 
-    public int getEventId() { return eventId; }
-    public void setEventId(int eventId) { this.eventId = eventId; }
     public int getWeightlifterId() { return weightlifterId; }
     public void setWeightlifterId(int weightlifterId) { this.weightlifterId = weightlifterId; }
     public Iterable<Weightlifter> getWeightlifters() { return weightlifters; }
-    public Event getEvent() { return event; }
+    public int getUserTotal() { return userTotal; }
+    public void setUserTotal(int userTotal) { this.userTotal = userTotal; }
+
 }
