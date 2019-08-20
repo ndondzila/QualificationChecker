@@ -11,42 +11,33 @@
 
 <h1 th:text="${title}">Default Title</h1>
 
-<form method="post" style="max-width:600px;">
+    <form method="post" th:object="${form}" style="width:600px;">
+        <div class="form-group">
+            <label th:for="weightlifterId">Weight class:</label>
+            <select th:field="*{weightlifterId}">
+                <option th:each="weightlifter : ${weightlifters}"
+                        th:value="${weightlifter.id}"
+                        th:text="${weightlifter.toString()}"></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label th:field="*{userTotal}">Your total: </label>
+            <input name="userTotal" type="text"/>
+        </div>
 
-    <div class="form-group">
-        <label th:for="gender">Competition gender:</label>
-        <select name="gender">
-            <option></option>
-            <option th:value="f">Women's</option>
-            <option th:value="m">Men's</option>
-        </select>
-    </div>
+        <input type="submit" value="Check if qualified"/>
 
-    <div class="form-group">
-        <label th:for="weightclass">Your weightclass: </label>
-        <select name="weightclass">
-            <option th:each="weightlifter : ${weightlifters}"
-                    th:text="${weightlifter.toString()}"
-                    th:value="${weightlifter.id}"></option>
-        </select>
-    </div>
+    </form>
 
-    <div class="form-group">
-        <label th:for="userTotal">Your total: </label>
-        <input class="form-control" type="text" name="userTotal" />
-    </div>
+</body>
 
-
-    <input type="submit" value="Do I Qualify?" />
-
-</form>
 <br/>
 
 <script>
 document.write("Placeholder for learning and applying JavaScript to this webpage!");
 </script>
 
-</body>
+
 
 
 </html>
