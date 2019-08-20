@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+
+<head th:replace="fragments :: head">
+    <meta charset="UTF-8" />
+</head>
+
+<nav th:replace="fragments :: navigation"></nav>
+
+<body class="container">
+
+<h1 th:text="${title}">Default Title</h1>
+
+<form method="post" style="width:600px;">
+    <div class="form-group">
+        <label>Competition gender:</label>
+        <select id="gender" name="gender" onchange="populate('gender', 'weightclass')">
+            <option value="women">Women's</option>
+            <option value="men">Men's</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label>Weight class:</label>
+        <select id="weightclass" name="weightclass"></select>
+    </div>
+
+    <div class="form-group">
+        <label>Your total: </label>
+        <input name="userTotal" type="text"/>
+    </div>
+
+    <input type="submit" value="Check if qualified"/>
+
+</form>
+
+</body>
+
+<br/>
+
+<script type="text/javascript">
+function populate(s1, s2){
+    var s1 = document.getElementById(s1);
+    var s2 = document.getElementById(s2);
+    s2.innerHTML = "";
+    if(s1.value == "women") {
+        var optionArray = ["|", "45kg|45kg", "49kg|49kg"];
+    } else if(s1.value == "men") {
+        var optionArray = ["|", "55kg|55kg", "61kg|61kg"];
+    }
+    for (var option in optionArray) {
+        var pair = optionArray[option].split("|");
+        var newOption = document.createElement("option");
+        newOption.value = pair[0];
+        newOption.innerHTML = pair[1];
+        weightclass.options.add(newOption);
+    }
+}
+</script>
+
+
+
+
+</html>

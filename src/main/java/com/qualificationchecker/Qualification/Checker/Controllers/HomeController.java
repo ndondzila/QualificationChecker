@@ -26,6 +26,12 @@ public class HomeController {
         return "Home/Home";
     }
 
+    @RequestMapping(value = "JS", method = RequestMethod.GET)
+    public String displayJShome(Model model) {
+
+        return "Home/HomeJS";
+    }
+
     @RequestMapping(value = "", method = RequestMethod.POST)
     public String processDisplayhome(Model model) {
         return "Home/Home";
