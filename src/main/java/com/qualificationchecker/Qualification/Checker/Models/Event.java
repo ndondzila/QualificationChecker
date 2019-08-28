@@ -1,6 +1,9 @@
 package com.qualificationchecker.Qualification.Checker.Models;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +14,12 @@ public class Event {
     @GeneratedValue
     private int id;
 
+    @NotNull
+    @Size(min=1, message = "Event name cannot be empty")
     private String name;
+
+    @NotNull(message = "Please enter event year")
+    @Min(value=2018, message = "Must be 2019 or later")
     private int year;
 
     @OneToMany

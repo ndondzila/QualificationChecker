@@ -10,6 +10,7 @@ import com.qualificationchecker.Qualification.Checker.Models.Weightlifter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -38,7 +39,13 @@ public class DataEntryController {
     }
 
     @RequestMapping(value = "weightlifter", method = RequestMethod.POST)
-    public String processWeightlifter(Model model, @ModelAttribute Weightlifter weightlifter) {
+    public String processWeightlifter(Model model, @ModelAttribute @Valid Weightlifter weightlifter) {
+
+        if(weightlifterDAO.count()==20) {
+            model.addAttribute("complete", "All weightclasses have been entered!");
+            model.addAttribute("weightlifters", weightlifterDAO.findAll());
+            return "DataPages/Weightlifter";
+        }
 
         model.addAttribute(weightlifter);
         weightlifterDAO.save(weightlifter);
@@ -56,7 +63,22 @@ public class DataEntryController {
     }
 
     @RequestMapping(value = "event", method = RequestMethod.POST)
-    public String processEvent(Model model, @ModelAttribute Event event) {
+    public String processEvent(Model model, @ModelAttribute @Valid Event event, Errors errors) {
+
+        Boolean duplicateEvent = Boolean.FALSE;
+
+        //TODO Add code to test for duplicate events based on name and year (toString() method likely used)
+
+        if(errors.hasErrors()||duplicateEvent) {
+
+            if(duplicateEvent) {
+                model.addAttribute("duplicate", "Event already entered!");
+            }
+
+            model.addAttribute("events", eventDAO.findAll());
+
+            return "DataPages/Event";
+        }
 
         model.addAttribute(event);
         eventDAO.save(event);

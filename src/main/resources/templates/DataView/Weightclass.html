@@ -8,21 +8,19 @@
 
 <nav th:replace="fragments :: data_navigation"></nav>
 
-<h1>Weightlifter class entry page</h1>
-<h2 th:text="${complete}" style="color:red; font-weight:bold"></h2>
-
 <table class="table">
     <tr>
-        <th>Gender</th>
-        <th>Weightclass</th>
-        <th>World record</th>
+        <th>2019 American Open Series</th>
+        <th>2019 American Open Finals</th>
+        <th>2020 National Championships</th>
+        <th>World Record</th>
     </tr>
 
-    <tr th:each="weightlifter : ${weightlifters}">
-        <td th:text="${weightlifter.gender}"></td>
-        <td th:text="${weightlifter.bodyweight}"></td>
-        <td th:text="${weightlifter.record}"></td>
-
+    <tr th:each="total : ${totals}">
+        <td th:text="${}"></td>
+        <td th:text="${}"></td>
+        <td th:text="${}"></td>
+        <td th:text="${}"></td>
     </tr>
 </table>
 

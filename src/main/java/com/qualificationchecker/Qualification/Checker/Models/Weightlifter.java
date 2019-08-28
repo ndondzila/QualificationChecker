@@ -1,8 +1,12 @@
 package com.qualificationchecker.Qualification.Checker.Models;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
+
+
+//TODO : change Weightlifter and ALL USES to Weightclass for clarity, and add American Records as attribute
 
 @Entity
 public class Weightlifter {
@@ -13,6 +17,8 @@ public class Weightlifter {
 
     private String gender;
     private String bodyweight;
+
+    @NotNull
     private int record;
 
     @OneToMany
