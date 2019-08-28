@@ -43,16 +43,8 @@ public class HomeController {
 
         int total = form.getUserTotal();
         Weightlifter weightlifter = weightlifterDAO.findOne(form.getWeightlifterId());
-        List<QualifyingTotal> qualifyingTotals = new ArrayList<>(weightlifter.getQualifyingTotals());
-        List<Event> qualified_events = new ArrayList<>();
-        for(int i = 0; i < qualifyingTotals.size(); i++) {
+        List<Event> qualified_events = new ArrayList<>(weightlifter.getQualifiedEvents(total));
 
-            QualifyingTotal qualifyingTotal = qualifyingTotals.get(i);
-            if(total>qualifyingTotal.getQualifyingTotal()) {
-                Event event = qualifyingTotal.getEvent();
-                qualified_events.add(event);
-            }
-        }
         if(qualified_events.size()<1) {
 
             model.addAttribute("results", "You do not qualify");

@@ -14,6 +14,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Iterator;
 
 
 @Controller
@@ -67,7 +68,12 @@ public class DataEntryController {
 
         Boolean duplicateEvent = Boolean.FALSE;
 
-        //TODO Add code to test for duplicate events based on name and year (toString() method likely used)
+        Iterator<Event> eventIterator = eventDAO.findAll().iterator();
+        while(eventIterator.hasNext()) {
+            if(eventIterator.next().toString().equals(event.toString())) {
+                duplicateEvent = Boolean.TRUE;
+            }
+        }
 
         if(errors.hasErrors()||duplicateEvent) {
 
@@ -90,7 +96,8 @@ public class DataEntryController {
     public String qualifyingTotals(Model model, @PathVariable int eventId) {
 
         Event event = eventDAO.findOne(eventId);
-        AddQualifyingTotalsForm form = new AddQualifyingTotalsForm(event, weightlifterDAO.findAll());
+        AddQualifyingTotalsForm form = new AddQualifyingTotalsForm(event, weightlifterDAO.findAll(),0);
+        model.addAttribute("event", event);
         model.addAttribute("title", "Update " + event.toString() + " qualifying totals:");
         model.addAttribute("weighlifters", weightlifterDAO.findAll());
         model.addAttribute("form", form);
@@ -99,13 +106,21 @@ public class DataEntryController {
     }
 
     @RequestMapping(value = "qualifyingtotals/{eventId}", method = RequestMethod.POST)
-    public String processQualifyingTotals(Model model, @PathVariable int eventId, @ModelAttribute @Valid AddQualifyingTotalsForm form, @RequestParam int total) {
+    public String processQualifyingTotals(Model model, @ModelAttribute @Valid AddQualifyingTotalsForm form, Errors errors) {
+
+        Event event = eventDAO.findOne(form.getEventId());
+
+        if(errors.hasErrors()) {
+
+            //TODO: Figure out how to validate and return error message for null, 0, or >WR/AR total??
+
+            return "DataPages/QualifyingTotals";
+        }
 
         Weightlifter weightlifter = weightlifterDAO.findOne(form.getWeightlifterId());
-        Event event = eventDAO.findOne(eventId);
-        QualifyingTotal qualifyingTotal = new QualifyingTotal(event, weightlifter, total);
+        QualifyingTotal qualifyingTotal = new QualifyingTotal(event, weightlifter, form.getQualifyingTotal());
         qualifyingTotalDAO.save(qualifyingTotal);
 
-        return "redirect:/data/qualifyingtotals/" + eventId;
+        return "redirect:/data/qualifyingtotals/" + form.getEventId();
     }
 }

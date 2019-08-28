@@ -16,7 +16,7 @@
     </tr>
     <tr th:each="weightlifter : ${weightlifters}">
         <td th:text="${weightlifter.toString()}"></td>
-        <td th:text="${weightlifter.record}"></td>
+        <td th:text="${weightlifter.getEventQualifyingTotal(${event})}"></td>
     </tr>
 </table>
 
@@ -30,8 +30,9 @@
         </select>
     </div>
     <div class="form-group">
-        <label th:for="total">Qualifying total: </label>
-        <input name="total" type="text"/>
+        <label th:for="qualifyingTotal">Qualifying total: </label>
+        <input class="form-control" th:field="*{qualifyingTotal}" type="text"/>
+        <span th:errors="*{qualifyingTotal}" style="color: red; font-weight:bold"></span>
     </div>
 
     <input type="submit" value="Update qualifying totals"/>

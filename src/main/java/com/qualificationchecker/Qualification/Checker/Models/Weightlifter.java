@@ -51,5 +51,27 @@ public class Weightlifter {
 
     public List<QualifyingTotal> getQualifyingTotals() { return qualifyingTotals; }
 
-    public String toString() {return bodyweight + " "+ gender;}
+    public List<Event> getQualifiedEvents(int total) {
+        List<Event> qualified_events = new ArrayList<>();
+        for(int i = 0; i < qualifyingTotals.size(); i++) {
+            QualifyingTotal qualifyingTotal = qualifyingTotals.get(i);
+            if(total>qualifyingTotal.getQualifyingTotal()) {
+                Event event = qualifyingTotal.getEvent();
+                qualified_events.add(event);
+            }
+        }
+        return qualified_events;
+    }
+
+    public String getEventQualifyingTotal(Event event) {
+        String eventQualifyingTotal = new String();
+        for(int i = 0; i < qualifyingTotals.size(); i++) {
+            QualifyingTotal qualifyingTotal = qualifyingTotals.get(i);
+            if(qualifyingTotal.getEvent().equals(event)) {
+                eventQualifyingTotal = event.toString();
+            }
+        }
+        return eventQualifyingTotal;
+    }
+    public String toString(){return bodyweight + " "+ gender;}
 }
