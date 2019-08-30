@@ -14,7 +14,9 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 
 @Controller
@@ -95,20 +97,29 @@ public class DataEntryController {
     @RequestMapping(value = "qualifyingtotals/{eventId}", method = RequestMethod.GET)
     public String qualifyingTotals(Model model, @PathVariable int eventId) {
 
-
-        //TODO: Find out how to apply this 'event' variable as the input condition for the getEventQualifyingTotal() method
         Event event = eventDAO.findOne(eventId);
-        AddQualifyingTotalsForm form = new AddQualifyingTotalsForm(event, weightclassDAO.findAll(),0);
+
+        List<Weightclass> hasQT = new ArrayList<>();
+        List<Weightclass> noQT = new ArrayList<>();
+        Iterable<Weightclass> weightclassIterable = weightclassDAO.findAll();
+
+        for(Weightclass weightclass: weightclassIterable) {
+            if(weightclass.hasQualifyingTotal(event)) {
+                hasQT.add(weightclass);} else {
+                noQT.add(weightclass); } }
+
+        AddQualifyingTotalsForm form = new AddQualifyingTotalsForm(event,0);
         model.addAttribute("event", event);
         model.addAttribute("title", "Update " + event.toString() + " qualifying totals:");
-        model.addAttribute("weightclasses", weightclassDAO.findAll());
+        model.addAttribute("hasQT", hasQT);
+        model.addAttribute("noQT", noQT);
         model.addAttribute("form", form);
 
         return "DataPages/QualifyingTotals";
     }
 
     @RequestMapping(value = "qualifyingtotals/{eventId}", method = RequestMethod.POST)
-    public String processQualifyingTotals(Model model, @ModelAttribute @Valid AddQualifyingTotalsForm form, Errors errors) {
+    public String processQualifyingTotals(Model model, @ModelAttribute @Valid AddQualifyingTotalsForm form, Errors errors, @RequestParam int weightclassId) {
 
         Event event = eventDAO.findOne(form.getEventId());
 
@@ -119,7 +130,7 @@ public class DataEntryController {
             return "DataPages/QualifyingTotals";
         }
 
-        Weightclass weightclass = weightclassDAO.findOne(form.getWeightclassId());
+        Weightclass weightclass = weightclassDAO.findOne(weightclassId);
         QualifyingTotal qualifyingTotal = new QualifyingTotal(event, weightclass, form.getQualifyingTotal());
         qualifyingTotalDAO.save(qualifyingTotal);
 

@@ -1,7 +1,6 @@
 package com.qualificationchecker.Qualification.Checker.Models.Forms;
 
 import com.qualificationchecker.Qualification.Checker.Models.Event;
-import com.qualificationchecker.Qualification.Checker.Models.Weightclass;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -9,7 +8,6 @@ import javax.validation.constraints.NotNull;
 public class AddQualifyingTotalsForm {
 
     private Event event;
-    private Iterable<Weightclass> weightclasses;
 
     @NotNull
     private int eventId;
@@ -23,9 +21,8 @@ public class AddQualifyingTotalsForm {
 
     public AddQualifyingTotalsForm () {}
 
-    public AddQualifyingTotalsForm (Event event, Iterable<Weightclass> weightclasses, int qualifyingTotal) {
+    public AddQualifyingTotalsForm (Event event,  int qualifyingTotal) {
         this.event = event;
-        this.weightclasses = weightclasses;
         this.qualifyingTotal = qualifyingTotal;
     }
 
@@ -33,7 +30,6 @@ public class AddQualifyingTotalsForm {
     public void setEventId(int eventId) { this.eventId = eventId; }
     public int getWeightclassId() { return weightclassId; }
     public void setWeightlifterId(int weightclassId) { this.weightclassId = weightclassId; }
-    public Iterable<Weightclass> getWeightclasses() { return weightclasses; }
     public Event getEvent() { return event; }
     public void setQualifyingTotal(int qualifyingTotal) { this.qualifyingTotal = qualifyingTotal; }
     public int getQualifyingTotal() { return qualifyingTotal; }

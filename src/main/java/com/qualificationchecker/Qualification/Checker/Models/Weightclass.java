@@ -19,7 +19,7 @@ public class Weightclass {
     private int record;
 
     @OneToMany
-    @JoinColumn(name = "weightlifter_id")
+    @JoinColumn(name = "weightclass_id")
     private List<QualifyingTotal> qualifyingTotals = new ArrayList<>();
 
     public Weightclass(String gender, String bodyweight, int record) {
@@ -60,12 +60,23 @@ public class Weightclass {
         return qualified_events;
     }
 
+    public Boolean hasQualifyingTotal(Event event) {
+        Boolean hasQT = Boolean.FALSE;
+        for(int i = 0; i < qualifyingTotals.size(); i++) {
+            QualifyingTotal qualifyingTotal = qualifyingTotals.get(i);
+            if(qualifyingTotal.getEvent().equals(event)) {
+                hasQT = Boolean.TRUE;
+            }
+        }
+        return hasQT;
+    }
+
     public String getEventQualifyingTotal(Event event) {
         String eventQualifyingTotal = new String();
         for(int i = 0; i < qualifyingTotals.size(); i++) {
             QualifyingTotal qualifyingTotal = qualifyingTotals.get(i);
             if(qualifyingTotal.getEvent().equals(event)) {
-                eventQualifyingTotal = event.toString();
+                eventQualifyingTotal = qualifyingTotal.toString();
             }
         }
         return eventQualifyingTotal;

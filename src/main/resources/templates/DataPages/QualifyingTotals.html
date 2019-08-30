@@ -14,18 +14,17 @@
         <th>Weightclass</th>
         <th>Qualifying total</th>
     </tr>
-    <tr th:each="weightclass : ${weightclasses}">
+    <tr th:each="weightclass : ${hasQT}">
         <td th:text="${weightclass.toString()}"></td>
-        < -- //TODO: Find out how to use the getEventQualifyingTotal( 'event' ) -->
-        <td th:text="${weightclass.toString()}"></td>
+        <td th:text="${weightclass.getEventQualifyingTotal(event)}"></td>
     </tr>
 </table>
 
 <form method="post" th:object="${form}" style="width:600px;">
     <div class="form-group">
         <label th:for="weightclassId">Weight class:</label>
-        <select th:field="*{weightclassId}">
-            <option th:each="weightclass : *{weightclasses}"
+        <select name="weightclassId">
+            <option th:each="weightclass : ${noQT}"
                     th:value="${weightclass.id}"
                     th:text="${weightclass.toString()}"></option>
         </select>
