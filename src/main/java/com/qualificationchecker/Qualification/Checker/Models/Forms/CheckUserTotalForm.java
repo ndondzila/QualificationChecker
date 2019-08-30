@@ -2,6 +2,8 @@ package com.qualificationchecker.Qualification.Checker.Models.Forms;
 
 import com.qualificationchecker.Qualification.Checker.Models.Weightclass;
 
+
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 public class CheckUserTotalForm {
@@ -12,6 +14,7 @@ public class CheckUserTotalForm {
     private int weightlifterId;
 
     @NotNull
+    @Min(value=1, message = "Please enter a total!")
     private int userTotal;
 
     public CheckUserTotalForm (){}

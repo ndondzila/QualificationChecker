@@ -23,7 +23,9 @@
         <td><a th:href="'/data/qualifyingtotals/'+ ${event.id}">Update qualifying totals</a></td>
     </tr>
 </table>
+
 <h4 th:text="${duplicate}" style="color: red; font-weight:bold"></h4>
+
 <form method="post" th:object="${event}" style="width:600px;">
 
     <div class="form-group">

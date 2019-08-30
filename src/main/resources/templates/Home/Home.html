@@ -11,7 +11,8 @@
 
 <h1 th:text="${title}">Default Title</h1>
 
-    <form method="post" th:object="${form}" style="width:600px;">
+    <form method="post" th:object="${checkUserTotalForm}" style="width:600px;">
+
         <div class="form-group">
             <label th:for="weightlifterId">Weight class:</label>
             <select th:field="*{weightlifterId}">
@@ -20,9 +21,11 @@
                         th:text="${weightclass.toString()}"></option>
             </select>
         </div>
+
         <div class="form-group">
-            <label th:field="*{userTotal}">Your total: </label>
-            <input name="userTotal" type="text"/>
+            <label th:for="userTotal">Your total: </label>
+            <input class="form-control" th:field="*{userTotal}" type="text"/>
+            <span th:errors="*{userTotal}" style="color: red; font-weight:bold"></span>
         </div>
 
         <input type="submit" value="Check if qualified"/>
@@ -31,7 +34,6 @@
 
 
 <br/>
-<script src="js/script.js"></script>
 
 </body>
 </html>

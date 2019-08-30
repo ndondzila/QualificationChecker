@@ -8,9 +8,11 @@ import com.qualificationchecker.Qualification.Checker.Models.Weightclass;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -29,30 +31,32 @@ public class HomeController {
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String displayhome(Model model) {
 
-        CheckUserTotalForm form = new CheckUserTotalForm();
         model.addAttribute("weightlifters", weightclassDAO.findAll());
         model.addAttribute("title", "Qualification Checker");
-        model.addAttribute("form", form);
+        model.addAttribute(new CheckUserTotalForm());
 
         return "Home/Home";
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public String processDisplayhome(Model model,  @ModelAttribute @Valid CheckUserTotalForm form) {
+    public String processDisplayhome(Model model,  @RequestParam String userTotal, @ModelAttribute @Valid CheckUserTotalForm checkUserTotalForm, Errors errors) {
 
-        int total = form.getUserTotal();
-        Weightclass weightclass = weightclassDAO.findOne(form.getWeightlifterId());
+        if(errors.hasErrors()) {
+            model.addAttribute("weightlifters", weightclassDAO.findAll());
+            return "Home/Home"; }
+
+        int total = checkUserTotalForm.getUserTotal();
+        Weightclass weightclass = weightclassDAO.findOne(checkUserTotalForm.getWeightlifterId());
         List<Event> qualified_events = new ArrayList<>(weightclass.getQualifiedEvents(total));
 
         if(qualified_events.size()<1) {
+            model.addAttribute("results", "You do not qualify"); }
 
-            model.addAttribute("results", "You do not qualify");
-        } else {
+        else {
             model.addAttribute("results", "With a total of " + total + "kg at " + weightclass.getBodyweight() + ", you qualify for the following events:");
-            model.addAttribute("events", qualified_events);
-            }
+            model.addAttribute("events", qualified_events); }
 
-            model.addAttribute("title", "Qualification Checker");
+        model.addAttribute("title", "Qualification Checker");
 
         return "Home/Results";
     }
