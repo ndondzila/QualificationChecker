@@ -2,11 +2,11 @@ package com.qualificationchecker.Qualification.Checker.Controllers;
 
 import com.qualificationchecker.Qualification.Checker.Models.Data.EventDAO;
 import com.qualificationchecker.Qualification.Checker.Models.Data.QualifyingTotalDAO;
-import com.qualificationchecker.Qualification.Checker.Models.Data.WeightlifterDAO;
+import com.qualificationchecker.Qualification.Checker.Models.Data.WeightclassDAO;
 import com.qualificationchecker.Qualification.Checker.Models.Event;
 import com.qualificationchecker.Qualification.Checker.Models.Forms.AddQualifyingTotalsForm;
 import com.qualificationchecker.Qualification.Checker.Models.QualifyingTotal;
-import com.qualificationchecker.Qualification.Checker.Models.Weightlifter;
+import com.qualificationchecker.Qualification.Checker.Models.Weightclass;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,7 +22,7 @@ import java.util.Iterator;
 public class DataEntryController {
 
     @Autowired
-    private WeightlifterDAO weightlifterDAO;
+    private WeightclassDAO weightclassDAO;
 
     @Autowired
     private EventDAO eventDAO;
@@ -30,28 +30,28 @@ public class DataEntryController {
     @Autowired
     private QualifyingTotalDAO qualifyingTotalDAO;
 
-    @RequestMapping(value = "weightlifter", method = RequestMethod.GET)
+    @RequestMapping(value = "weightclass", method = RequestMethod.GET)
     public String weightlifter(Model model) {
 
-        model.addAttribute("weightlifters", weightlifterDAO.findAll());
-        model.addAttribute(new Weightlifter());
+        model.addAttribute("weightclasses", weightclassDAO.findAll());
+        model.addAttribute(new Weightclass());
 
-        return "DataPages/Weightlifter";
+        return "DataPages/Weightclass";
     }
 
-    @RequestMapping(value = "weightlifter", method = RequestMethod.POST)
-    public String processWeightlifter(Model model, @ModelAttribute @Valid Weightlifter weightlifter) {
+    @RequestMapping(value = "weightclass", method = RequestMethod.POST)
+    public String processWeightlifter(Model model, @ModelAttribute @Valid Weightclass weightclass) {
 
-        if(weightlifterDAO.count()==20) {
+        if(weightclassDAO.count()==20) {
             model.addAttribute("complete", "All weightclasses have been entered!");
-            model.addAttribute("weightlifters", weightlifterDAO.findAll());
-            return "DataPages/Weightlifter";
+            model.addAttribute("weightclass", weightclassDAO.findAll());
+            return "DataPages/Weightclass";
         }
 
-        model.addAttribute(weightlifter);
-        weightlifterDAO.save(weightlifter);
+        model.addAttribute(weightclass);
+        weightclassDAO.save(weightclass);
 
-        return "redirect:/data/weightlifter";
+        return "redirect:/data/weightclass";
     }
 
     @RequestMapping(value = "event", method = RequestMethod.GET)
@@ -95,11 +95,13 @@ public class DataEntryController {
     @RequestMapping(value = "qualifyingtotals/{eventId}", method = RequestMethod.GET)
     public String qualifyingTotals(Model model, @PathVariable int eventId) {
 
+
+        //TODO: Find out how to apply this 'event' variable as the input condition for the getEventQualifyingTotal() method
         Event event = eventDAO.findOne(eventId);
-        AddQualifyingTotalsForm form = new AddQualifyingTotalsForm(event, weightlifterDAO.findAll(),0);
+        AddQualifyingTotalsForm form = new AddQualifyingTotalsForm(event, weightclassDAO.findAll(),0);
         model.addAttribute("event", event);
         model.addAttribute("title", "Update " + event.toString() + " qualifying totals:");
-        model.addAttribute("weighlifters", weightlifterDAO.findAll());
+        model.addAttribute("weightclasses", weightclassDAO.findAll());
         model.addAttribute("form", form);
 
         return "DataPages/QualifyingTotals";
@@ -117,8 +119,8 @@ public class DataEntryController {
             return "DataPages/QualifyingTotals";
         }
 
-        Weightlifter weightlifter = weightlifterDAO.findOne(form.getWeightlifterId());
-        QualifyingTotal qualifyingTotal = new QualifyingTotal(event, weightlifter, form.getQualifyingTotal());
+        Weightclass weightclass = weightclassDAO.findOne(form.getWeightclassId());
+        QualifyingTotal qualifyingTotal = new QualifyingTotal(event, weightclass, form.getQualifyingTotal());
         qualifyingTotalDAO.save(qualifyingTotal);
 
         return "redirect:/data/qualifyingtotals/" + form.getEventId();

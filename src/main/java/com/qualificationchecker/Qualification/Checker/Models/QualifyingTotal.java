@@ -17,13 +17,13 @@ public class QualifyingTotal {
     private Event event;
 
     @ManyToOne
-    private Weightlifter weightlifter;
+    private Weightclass weightclass;
 
     public QualifyingTotal(){}
 
-    public QualifyingTotal(Event event, Weightlifter weightlifter, int qualifyingTotal){
+    public QualifyingTotal(Event event, Weightclass weightclass, int qualifyingTotal){
         this.event = event;
-        this.weightlifter = weightlifter;
+        this.weightclass = weightclass;
         this.qualifyingTotal = qualifyingTotal;
     }
 

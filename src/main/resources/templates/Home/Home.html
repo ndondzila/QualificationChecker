@@ -15,9 +15,9 @@
         <div class="form-group">
             <label th:for="weightlifterId">Weight class:</label>
             <select th:field="*{weightlifterId}">
-                <option th:each="weightlifter : ${weightlifters}"
-                        th:value="${weightlifter.id}"
-                        th:text="${weightlifter.toString()}"></option>
+                <option th:each="weightclass : ${weightlifters}"
+                        th:value="${weightclass.id}"
+                        th:text="${weightclass.toString()}"></option>
             </select>
         </div>
         <div class="form-group">

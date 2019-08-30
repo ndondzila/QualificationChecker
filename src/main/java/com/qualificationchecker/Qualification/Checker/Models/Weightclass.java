@@ -5,11 +5,8 @@ import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-
-//TODO : change Weightlifter and ALL USES to Weightclass for clarity, and add American Records as attribute
-
 @Entity
-public class Weightlifter {
+public class Weightclass {
 
     @Id
     @GeneratedValue
@@ -25,13 +22,13 @@ public class Weightlifter {
     @JoinColumn(name = "weightlifter_id")
     private List<QualifyingTotal> qualifyingTotals = new ArrayList<>();
 
-    public Weightlifter(String gender, String bodyweight, int record) {
+    public Weightclass(String gender, String bodyweight, int record) {
         this.gender = gender;
         this.bodyweight = bodyweight;
         this.record = record;
     }
 
-    public Weightlifter(){}
+    public Weightclass(){}
 
     public int getId() { return id; }
 

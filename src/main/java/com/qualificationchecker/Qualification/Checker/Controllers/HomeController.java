@@ -1,11 +1,10 @@
 package com.qualificationchecker.Qualification.Checker.Controllers;
 
 import com.qualificationchecker.Qualification.Checker.Models.Data.EventDAO;
-import com.qualificationchecker.Qualification.Checker.Models.Data.WeightlifterDAO;
+import com.qualificationchecker.Qualification.Checker.Models.Data.WeightclassDAO;
 import com.qualificationchecker.Qualification.Checker.Models.Event;
 import com.qualificationchecker.Qualification.Checker.Models.Forms.CheckUserTotalForm;
-import com.qualificationchecker.Qualification.Checker.Models.QualifyingTotal;
-import com.qualificationchecker.Qualification.Checker.Models.Weightlifter;
+import com.qualificationchecker.Qualification.Checker.Models.Weightclass;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,7 +21,7 @@ import java.util.List;
 public class HomeController {
 
     @Autowired
-    private WeightlifterDAO weightlifterDAO;
+    private WeightclassDAO weightclassDAO;
 
     @Autowired
     private EventDAO eventDAO;
@@ -31,7 +30,7 @@ public class HomeController {
     public String displayhome(Model model) {
 
         CheckUserTotalForm form = new CheckUserTotalForm();
-        model.addAttribute("weightlifters", weightlifterDAO.findAll());
+        model.addAttribute("weightlifters", weightclassDAO.findAll());
         model.addAttribute("title", "Qualification Checker");
         model.addAttribute("form", form);
 
@@ -42,14 +41,14 @@ public class HomeController {
     public String processDisplayhome(Model model,  @ModelAttribute @Valid CheckUserTotalForm form) {
 
         int total = form.getUserTotal();
-        Weightlifter weightlifter = weightlifterDAO.findOne(form.getWeightlifterId());
-        List<Event> qualified_events = new ArrayList<>(weightlifter.getQualifiedEvents(total));
+        Weightclass weightclass = weightclassDAO.findOne(form.getWeightlifterId());
+        List<Event> qualified_events = new ArrayList<>(weightclass.getQualifiedEvents(total));
 
         if(qualified_events.size()<1) {
 
             model.addAttribute("results", "You do not qualify");
         } else {
-            model.addAttribute("results", "With a total of " + total + "kg at " + weightlifter.getBodyweight() + ", you qualify for the following events:");
+            model.addAttribute("results", "With a total of " + total + "kg at " + weightclass.getBodyweight() + ", you qualify for the following events:");
             model.addAttribute("events", qualified_events);
             }
 

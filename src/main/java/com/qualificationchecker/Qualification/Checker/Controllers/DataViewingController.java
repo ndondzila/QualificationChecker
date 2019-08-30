@@ -3,7 +3,7 @@ package com.qualificationchecker.Qualification.Checker.Controllers;
 
 import com.qualificationchecker.Qualification.Checker.Models.Data.EventDAO;
 import com.qualificationchecker.Qualification.Checker.Models.Data.QualifyingTotalDAO;
-import com.qualificationchecker.Qualification.Checker.Models.Data.WeightlifterDAO;
+import com.qualificationchecker.Qualification.Checker.Models.Data.WeightclassDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class DataViewingController {
 
     @Autowired
-    private WeightlifterDAO weightlifterDAO;
+    private WeightclassDAO weightclassDAO;
 
     @Autowired
     private EventDAO eventDAO;
