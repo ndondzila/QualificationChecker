@@ -14,7 +14,7 @@
 <form method="post" style="width:600px;">
     <div class="form-group">
         <label>Competition gender:</label>
-        <select id="gender" name="gender" onchange="populate('gender', 'weightclass')">
+        <select id="gender" name="gender" >
             <option value="women">Women's</option>
             <option value="men">Men's</option>
         </select>
@@ -33,31 +33,27 @@
 
 </form>
 
+<div id="main"></div>
+
 </body>
 
 <br/>
 
-<script type="text/javascript">
-function populate(s1, s2){
-    var s1 = document.getElementById(s1);
-    var s2 = document.getElementById(s2);
-    s2.innerHTML = "";
-    if(s1.value == "women") {
-        var optionArray = ["|", "45kg|45kg", "49kg|49kg"];
-    } else if(s1.value == "men") {
-        var optionArray = ["|", "55kg|55kg", "61kg|61kg"];
-    }
-    for (var option in optionArray) {
-        var pair = optionArray[option].split("|");
-        var newOption = document.createElement("option");
-        newOption.value = pair[0];
-        newOption.innerHTML = pair[1];
-        weightclass.options.add(newOption);
-    }
-}
+<script th:inline="javascript" src="js/script.js">
+
+/*<![CDATA[*/
+    var womens = /*[[${womens}]]*/;
+    var mens = /*[[${mens}]]*/;
+/*]]>*/
+
+ var mainDiv = document.getElementById("main");
+ for(Weightclass weightclass: womens); i++){
+	 var t = document.createTextNode(weightclass.getBodyweight());
+	 var p = document.createElement("P");
+	 p.appendChild(t);
+	 mainDiv.appendChild(p);
+ }
+
 </script>
-
-
-
 
 </html>
