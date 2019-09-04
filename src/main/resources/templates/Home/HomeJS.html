@@ -10,18 +10,27 @@
 <body class="container">
 
 <h1 th:text="${title}">Default Title</h1>
-
+<br/>
 <form method="post" style="width:600px;">
     <div class="form-group">
         <label>Competition gender:</label>
-        <select id="gender" name="gender" >
-            <option value="women">Women's</option>
+        <select id="gender" name="gender" onchange="toggleGender()">
+            <option value="women" selected="selected">Women's</option>
             <option value="men">Men's</option>
         </select>
     </div>
+
     <div class="form-group">
         <label>Weight class:</label>
-        <select id="weightclass" name="weightclass"></select>
+        <select id="weightclass" required="required">
+            <option></option>
+            <option id="w" style="display:block" th:each="weightclass : ${womens}"
+                    th:value="${weightclass.id}"
+                    th:text="${weightclass.toString()}"></option>
+            <option id="m" style="display:none" th:each="weightclass : ${mens}"
+                    th:value="${weightclass.id}"
+                    th:text="${weightclass.toString()}"></option>
+        </select>
     </div>
 
     <div class="form-group">
@@ -32,28 +41,9 @@
     <input type="submit" value="Check if qualified"/>
 
 </form>
-
-<div id="main"></div>
-
 </body>
 
 <br/>
 
-<script th:inline="javascript" src="js/script.js">
-
-/*<![CDATA[*/
-    var womens = /*[[${womens}]]*/;
-    var mens = /*[[${mens}]]*/;
-/*]]>*/
-
- var mainDiv = document.getElementById("main");
- for(Weightclass weightclass: womens); i++){
-	 var t = document.createTextNode(weightclass.getBodyweight());
-	 var p = document.createElement("P");
-	 p.appendChild(t);
-	 mainDiv.appendChild(p);
- }
-
-</script>
-
+<script src="js/script.js"></script>
 </html>

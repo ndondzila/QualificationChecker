@@ -31,7 +31,16 @@ public class HomeController {
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String displayhome(Model model) {
 
-        model.addAttribute("weightlifters", weightclassDAO.findAll());
+        List<Weightclass> womens = new ArrayList<>();
+        List<Weightclass> mens = new ArrayList<>();
+        for(Weightclass weightclass: weightclassDAO.findAll()) {
+            if(weightclass.getGender().equals("F")) {
+                womens.add(weightclass);
+            } else {mens.add(weightclass); }
+        }
+        model.addAttribute("womens", womens);
+        model.addAttribute("mens", mens);
+        model.addAttribute("weightclasses", weightclassDAO.findAll());
         model.addAttribute("title", "Qualification Checker");
         model.addAttribute(new CheckUserTotalForm());
 
