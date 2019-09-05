@@ -70,17 +70,4 @@ public class HomeController {
         return "Home/Results";
     }
 
-    @RequestMapping(value = "JS", method = RequestMethod.GET)
-    public String displayJShome(Model model) {
-
-        return "Home/HomeJS";
-    }
-
-    @RequestMapping(value="results", method = RequestMethod.GET)
-    public String displayresults(Model model) {
-
-        return "Home/Results";
-    }
-    
-
 }

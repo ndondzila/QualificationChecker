@@ -1,0 +1,24 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+
+<body class="container">
+
+<nav th:replace="fragments :: data_navigation"></nav>
+
+<h1 th:text="${title}">View all USAW Qualifying Totals</h1>
+
+<table class="table">
+    <tr>
+        <th>Weightclass</th>
+        <th th:each="event:${events}" th:text="${event.toString()}"></th>
+    </tr>
+    <tr th:each="weightclass : ${weightclasses}">
+        <td th:text="${weightclass.toString()}"><a href="/view/weightclass/${weightclass.id}"></a></td>
+        <td th:each="event:${events}" th:text="${weightclass.getEventQualifyingTotal(event)}"></td>
+    </tr>
+</table>
+
+</body>
+</html>

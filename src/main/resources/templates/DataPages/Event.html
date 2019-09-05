@@ -12,15 +12,15 @@
 
 <table class="table">
     <tr>
-        <th>Event name</th>
         <th>Year</th>
+        <th>Event Name</th>
         <th>Link to qualifying totals</th>
     </tr>
 
     <tr th:each="event : ${events}">
-        <td th:text="${event.name}"></td>
         <td th:text="${event.year}"></td>
-        <td><a th:href="'/data/qualifyingtotals/'+ ${event.id}">Update qualifying totals</a></td>
+        <td th:text="${event.name}"></td>
+        <td><a th:href="'/data/qualifyingtotals/'+ ${event.id}">Update/View qualifying totals</a></td>
     </tr>
 </table>
 

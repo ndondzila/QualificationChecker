@@ -6,47 +6,24 @@
 
 <body class="container">
 
-<nav th:replace="fragments :: data_navigation"></nav>
+<nav th:replace="fragments :: navigation"></nav>
+
+<h1 th:text="'Data for the ' + ${weightclass.toString()} + ' Weightclass'"></h1>
 
 <table class="table">
     <tr>
-        <th>2019 American Open Series</th>
-        <th>2019 American Open Finals</th>
-        <th>2020 National Championships</th>
+        <th th:each="event:${events}" th:text="${event.toString()}"></th>
+        <th>American Record</th>
         <th>World Record</th>
     </tr>
 
-    <tr th:each="total : ${totals}">
-        <td th:text="${}"></td>
-        <td th:text="${}"></td>
-        <td th:text="${}"></td>
-        <td th:text="${}"></td>
+    <tr>
+        <td th:each="event:${events}" th:text="${weightclass.getEventQualifyingTotal(event)}"></td>
+        <td th:text="${weightclass.getAmericanRecord()} + 'kg'"></td>
+        <td th:text="${weightclass.getWorldRecord()} + 'kg'"></td>
     </tr>
 </table>
 
-<form method="post" th:object="${weightclass}" style="width:600px;">
-
-    <div class="form-group">
-        <label th:for="gender">Gender:</label>
-        <select name="gender" th:field="*{gender}">
-            <option th:value="F">Women's</option>
-            <option th:value="M">Men's</option>
-        </select>
-    </div>
-
-    <div class="form-group">
-        <label th:for="bodyweight">Weightclass: </label>
-        <input class="form-control" th:field="*{bodyweight}" type="text"/>
-    </div>
-
-    <div class="form-group">
-        <label th:for="record">World record: </label>
-        <input class="form-control" th:field="*{record}" type="text"/>
-    </div>
-
-    <input type="submit" value="Enter weightclass profile" />
-
-</form>
 
 </body>
 </html>

@@ -16,16 +16,20 @@ public class Weightclass {
     private String bodyweight;
 
     @NotNull
-    private int record;
+    private int americanRecord;
+
+    @NotNull
+    private int worldRecord;
 
     @OneToMany
     @JoinColumn(name = "weightclass_id")
     private List<QualifyingTotal> qualifyingTotals = new ArrayList<>();
 
-    public Weightclass(String gender, String bodyweight, int record) {
+    public Weightclass(String gender, String bodyweight, int americanRecord, int worldRecord) {
         this.gender = gender;
         this.bodyweight = bodyweight;
-        this.record = record;
+        this.americanRecord = americanRecord;
+        this.worldRecord = worldRecord;
     }
 
     public Weightclass(){}
@@ -40,9 +44,13 @@ public class Weightclass {
 
     public void setBodyweight(String bodyweight) { this.bodyweight = bodyweight; }
 
-    public int getRecord() { return record; }
+    public int getAmericanRecord() { return americanRecord; }
 
-    public void setRecord(int record) { this.record = record; }
+    public void setAmericanRecord(int americanRecord) { this.americanRecord = americanRecord; }
+
+    public int getWorldRecord() { return worldRecord; }
+
+    public void setWorldRecord(int worldRecord) { this.worldRecord = worldRecord; }
 
     public void addQualifyingTotal(QualifyingTotal total) {qualifyingTotals.add(total);}
 

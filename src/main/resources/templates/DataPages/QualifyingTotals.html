@@ -9,6 +9,7 @@
 
 <h1 th:text="${title}">Default Title</h1>
 
+<h2 th:text="${complete}" style="color:red; font-weight:bold"></h2>
 <table class="table">
     <tr>
         <th>Weightclass</th>
@@ -19,7 +20,7 @@
         <td th:text="${weightclass.getEventQualifyingTotal(event)}"></td>
     </tr>
 </table>
-
+<div th:if="${showForm}">
 <form method="post" th:object="${form}" style="width:600px;">
     <div class="form-group">
         <label th:for="weightclassId">Weight class:</label>
@@ -38,6 +39,7 @@
     <input type="submit" value="Update qualifying totals"/>
 
 </form>
+</div>
 
 </body>
 </html>

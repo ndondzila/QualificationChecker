@@ -36,6 +36,12 @@ public class DataEntryController {
     public String weightlifter(Model model) {
 
         model.addAttribute("weightclasses", weightclassDAO.findAll());
+        if(weightclassDAO.count()==20) {
+            model.addAttribute("complete", "All weightclasses have been entered!");
+            model.addAttribute("showForm", Boolean.FALSE);
+            return "DataPages/Weightclass";}
+
+        model.addAttribute("showForm", Boolean.TRUE);
         model.addAttribute(new Weightclass());
 
         return "DataPages/Weightclass"; }
@@ -43,11 +49,6 @@ public class DataEntryController {
 
     @RequestMapping(value = "weightclass", method = RequestMethod.POST)
     public String processWeightlifter(Model model, @ModelAttribute @Valid Weightclass weightclass) {
-
-        if(weightclassDAO.count()==20) {
-            model.addAttribute("complete", "All weightclasses have been entered!");
-            model.addAttribute("weightclass", weightclassDAO.findAll());
-            return "DataPages/Weightclass"; }
 
         model.addAttribute(weightclass);
         weightclassDAO.save(weightclass);
@@ -103,11 +104,20 @@ public class DataEntryController {
                 hasQT.add(weightclass);} else {
                 noQT.add(weightclass); } }
 
+        model.addAttribute("hasQT", hasQT);
+
+        if(hasQT.size() == 20){
+            model.addAttribute("title",  event.toString() + " qualifying totals:");
+            model.addAttribute("complete", "All qualifying totals have been entered for this event!");
+            model.addAttribute("showForm", Boolean.FALSE);
+            return "DataPages/QualifyingTotals";
+        }
+
         AddQualifyingTotalsForm form = new AddQualifyingTotalsForm(event,0);
         model.addAttribute("event", event);
         model.addAttribute("title", "Update " + event.toString() + " qualifying totals:");
-        model.addAttribute("hasQT", hasQT);
         model.addAttribute("noQT", noQT);
+        model.addAttribute("showForm", Boolean.TRUE);
         model.addAttribute("form", form);
 
         return "DataPages/QualifyingTotals"; }

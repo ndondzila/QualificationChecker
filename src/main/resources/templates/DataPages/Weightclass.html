@@ -15,17 +15,18 @@
     <tr>
         <th>Gender</th>
         <th>Weightclass</th>
+        <th>American record</th>
         <th>World record</th>
     </tr>
 
-    <tr th:each="weightclass : ${weightlifters}">
+    <tr th:each="weightclass : ${weightclasses}">
         <td th:text="${weightclass.gender}"></td>
         <td th:text="${weightclass.bodyweight}"></td>
-        <td th:text="${weightclass.record}"></td>
-
+        <td th:text="${weightclass.americanRecord}"></td>
+        <td th:text="${weightclass.worldRecord}"></td>
     </tr>
 </table>
-
+<div th:if="${showForm}">
 <form method="post" th:object="${weightclass}" style="width:600px;">
 
     <div class="form-group">
@@ -42,13 +43,19 @@
     </div>
 
     <div class="form-group">
-        <label th:for="record">World record: </label>
-        <input class="form-control" th:field="*{record}" type="text"/>
+        <label th:for="americanRecord">American record: </label>
+        <input class="form-control" th:field="*{americanRecord}" type="text"/>
+    </div>
+
+    <div class="form-group">
+        <label th:for="worldRecord">World record: </label>
+        <input class="form-control" th:field="*{worldRecord}" type="text"/>
     </div>
 
     <input type="submit" value="Enter weightclass profile" />
 
 </form>
+</div>
 
 </body>
 </html>
