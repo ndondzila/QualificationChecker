@@ -130,8 +130,6 @@ public class DataEntryController {
 
         if(errors.hasErrors()) {
 
-            //TODO: Figure out how to validate and return error message for null, 0, or >WR/AR total??
-
             return "DataPages/QualifyingTotals";
         }
 
