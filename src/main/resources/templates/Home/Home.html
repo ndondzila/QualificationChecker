@@ -11,11 +11,12 @@
 <h1 th:text="${title}">Default Title</h1>
 <br/>
 
+
+
 <div class="container-fluid text-center">
     <div class="row content">
-        <div class="col-sm-2 sidenav">
-        </div>
-        <div class="col-sm-8 text-left">
+
+        <div class="col-sm-12 text-left">
 
         <form method="post" th:object="${checkUserTotalForm}" style="width:600px;">
 
@@ -30,6 +31,7 @@
         <div class="form-group">
             <label th:for="weightlifterId">Weight class:</label>
             <select th:field="*{weightlifterId}">
+                <option th:value="0">Kilograms</option>
                 <option id="w" style="display:block" th:each="weightclass : ${womens}"
                         th:value="${weightclass.id}"
                         th:text="${weightclass.toString()}"></option>
@@ -37,6 +39,7 @@
                         th:value="${weightclass.id}"
                         th:text="${weightclass.toString()}"></option>
             </select>
+            <span th:errors="*{weightlifterId}" style="color: red; font-weight:bold"></span>
         </div>
 
         <div class="form-group">
@@ -49,7 +52,6 @@
 
     </form>
         </div>
-        <div class="col-sm-2 sidenav"></div>
     </div>
 </div>
 

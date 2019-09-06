@@ -11,6 +11,7 @@ public class CheckUserTotalForm {
     private Iterable<Weightclass> weightlifters;
 
     @NotNull
+    @Min(value=1, message = "Please select a weightclass!")
     private int weightlifterId;
 
     @NotNull

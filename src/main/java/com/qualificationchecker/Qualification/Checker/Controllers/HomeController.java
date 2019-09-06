@@ -51,8 +51,20 @@ public class HomeController {
     public String processDisplayhome(Model model,  @RequestParam String userTotal, @ModelAttribute @Valid CheckUserTotalForm checkUserTotalForm, Errors errors) {
 
         if(errors.hasErrors()) {
-            model.addAttribute("weightlifters", weightclassDAO.findAll());
-            return "Home/Home"; }
+            List<Weightclass> womens = new ArrayList<>();
+            List<Weightclass> mens = new ArrayList<>();
+            for(Weightclass weightclass: weightclassDAO.findAll()) {
+                if(weightclass.getGender().equals("F")) {
+                    womens.add(weightclass);
+                } else {mens.add(weightclass); }
+            }
+            model.addAttribute("womens", womens);
+            model.addAttribute("mens", mens);
+            model.addAttribute("weightclasses", weightclassDAO.findAll());
+            model.addAttribute("title", "Qualification Checker");
+            model.addAttribute(new CheckUserTotalForm());
+
+            return "Home/Home";}
 
         int total = checkUserTotalForm.getUserTotal();
         Weightclass weightclass = weightclassDAO.findOne(checkUserTotalForm.getWeightlifterId());
