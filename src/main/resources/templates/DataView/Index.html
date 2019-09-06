@@ -5,11 +5,11 @@
 
 <body class="container">
 
-<nav th:replace="fragments :: data_navigation"></nav>
+<nav th:replace="fragments :: navigation"></nav>
 
 <h1 th:text="${title}">View Data</h1>
 
-<h2><a href="/view/totals">View all qualifying totals</a></h2>
+<h2><a href="/view/totals" style="font-weight:bold">View all qualifying totals</a></h2>
 <table>
     <tr>
         <th><h4>View data by weightclass</h4></th>

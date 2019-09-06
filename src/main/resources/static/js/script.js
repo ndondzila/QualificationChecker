@@ -20,7 +20,7 @@ for(var i = 0; i < m.length; i++)
 
 function convert() {
 var lbs = Number(document.getElementById("imperial").value);
-var kgs = lbs * 0.453592;
+var kgs = Math.round(lbs * 0.453592);
 document.getElementById("metric").setAttribute("value", kgs);
 
 
