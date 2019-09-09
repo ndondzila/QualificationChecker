@@ -33,6 +33,8 @@ public class QualifyingTotal {
 
     public void setEvent(Event event) { this.event = event;}
 
+    public Weightclass getWeightclass() {return weightclass;}
+
     public int getQualifyingTotal() { return qualifyingTotal; }
 
     public void setQualifyingTotal(int qualifyingTotal) { this.qualifyingTotal = qualifyingTotal; }

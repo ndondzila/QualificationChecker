@@ -18,7 +18,7 @@
     </tr>
 
     <tr>
-        <td th:each="event:${events}" th:text="${weightclass.getEventQualifyingTotal(event)}"></td>
+        <td th:each="event:${events}" th:text="${weightclass.getEventQualifyingTotal(event)}+'kg'"></td>
         <td th:text="${weightclass.getAmericanRecord()} + 'kg'"></td>
         <td th:text="${weightclass.getWorldRecord()} + 'kg'"></td>
     </tr>

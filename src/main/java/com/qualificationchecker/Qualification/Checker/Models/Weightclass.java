@@ -79,12 +79,12 @@ public class Weightclass {
         return hasQT;
     }
 
-    public String getEventQualifyingTotal(Event event) {
-        String eventQualifyingTotal = new String();
+    public int getEventQualifyingTotal(Event event) {
+        int eventQualifyingTotal = 0;
         for(int i = 0; i < qualifyingTotals.size(); i++) {
             QualifyingTotal qualifyingTotal = qualifyingTotals.get(i);
             if(qualifyingTotal.getEvent().equals(event)) {
-                eventQualifyingTotal = qualifyingTotal.toString();
+                eventQualifyingTotal = qualifyingTotal.getQualifyingTotal();
             }
         }
         return eventQualifyingTotal;

@@ -82,4 +82,20 @@ public class HomeController {
         return "Home/Results";
     }
 
+    @RequestMapping(value = "BS", method = RequestMethod.GET)
+    public String bootStrap(Model model) {
+        Weightclass weightclass = weightclassDAO.findOne(15);
+
+        int userTotal = 300;
+        int ratioAR = Math.round((userTotal*100)/weightclass.getAmericanRecord());
+        int ratioWR = Math.round((userTotal*100)/weightclass.getWorldRecord());
+
+        model.addAttribute("weightclass", weightclass);
+        model.addAttribute("userTotal", userTotal);
+        model.addAttribute("ratioAR", ratioAR);
+        model.addAttribute("ratioWR", ratioWR);
+        model.addAttribute("events", eventDAO.findAll());
+
+        return "Home/BootstrapPractice";
+    }
 }
