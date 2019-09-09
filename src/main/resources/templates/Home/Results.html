@@ -2,19 +2,63 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 
 <head th:replace="fragments :: head">
-    <meta charset="UTF-8" />
 </head>
 
 <nav th:replace="fragments :: navigation"></nav>
 
-<body class="container">
+<body class="container text-center" onload="populateProgressBar()">
+
+<ul style="display:none">
+    <li th:value="${userTotal}" id="userTotal"></li>
+</ul>
+
+<br/>
+<br/>
+<br/>
 
 <h2 th:text="${results}"></h2>
 
-<ul th:each="event:${events}">
-    <h3><li th:text="${event}"></li></h3>
-</ul>
+<div class="row" th:each="event:${events}">
+    <div class="col-sm-2">
+        <dl>
+            <dt th:text="${event.toString()}"></dt>
+            <dd id="eventMessage"></dd>
+        </dl>
+    </div>
+    <div class="col-sm-10">
+        <label id="label" th:value="${event.toString()}"></label>
+        <div class="progress">
+            <div id="eventQT" th:value="${event.getQualifyingTotalByWeightclass(weightclass)}"></div></div>
+    </div>
+    <br/>
+    <br/>
+    <br/>
 
+</div>
+
+
+<div th:each="event:${events}">
+
+</div>
+<br/>
+
+<label for="progressAmericanRecord" th:text="${ratioAR}+'% of the '+ ${weightclass.getAmericanRecord()}+'kg American record'"></label>
+<div class="progress" id="progressAmericanRecord">
+    <div class="progress-bar progress-bar-info" role="progressbar" th:attr="style='width:'+${ratioAR}+'%'"
+         th:text="${userTotal}+ 'kg'">
+    </div>
+</div>
+
+<br/>
+
+
+<label for="progressWorldRecord" th:text="${ratioWR}+'% of the ' + ${weightclass.getWorldRecord()} + ' kg world record'"></label>
+<div class="progress" id="progressWorldRecord">
+    <div class="progress-bar progress-bar-info" role="progressbar" th:attr="style='width:'+${ratioWR}+'%'"
+         th:text="${userTotal}+'kg'">
+    </div>
+</div>
 
 </body>
+<script src="js/script.js"></script>
 </html>

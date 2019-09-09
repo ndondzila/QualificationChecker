@@ -48,7 +48,7 @@ public class HomeController {
     }
 
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public String processDisplayhome(Model model,  @RequestParam String userTotal, @ModelAttribute @Valid CheckUserTotalForm checkUserTotalForm, Errors errors) {
+    public String processDisplayhome(Model model, @ModelAttribute @Valid CheckUserTotalForm checkUserTotalForm, Errors errors) {
 
         if(errors.hasErrors()) {
             List<Weightclass> womens = new ArrayList<>();
@@ -66,18 +66,25 @@ public class HomeController {
 
             return "Home/Home";}
 
-        int total = checkUserTotalForm.getUserTotal();
+        int userTotal = checkUserTotalForm.getUserTotal();
+
         Weightclass weightclass = weightclassDAO.findOne(checkUserTotalForm.getWeightlifterId());
-        List<Event> qualified_events = new ArrayList<>(weightclass.getQualifiedEvents(total));
+        List<Event> qualified_events = new ArrayList<>(weightclass.getQualifiedEvents(userTotal));
+
+        int ratioAR = Math.round((userTotal*100)/weightclass.getAmericanRecord());
+        int ratioWR = Math.round((userTotal*100)/weightclass.getWorldRecord());
+
+        model.addAttribute("weightclass", weightclass);
+        model.addAttribute("userTotal", userTotal);
+        model.addAttribute("ratioAR", ratioAR);
+        model.addAttribute("ratioWR", ratioWR);
+        model.addAttribute("events", eventDAO.findAll());
 
         if(qualified_events.size()<1) {
-            model.addAttribute("results", "You do not qualify"); }
+            model.addAttribute("results", "You do yet not qualify, but here is some information!"); }
 
         else {
-            model.addAttribute("results", "With a total of " + total + "kg at " + weightclass.getBodyweight() + ", you qualify for the following events:");
-            model.addAttribute("events", qualified_events); }
-
-        model.addAttribute("title", "Qualification Checker");
+            model.addAttribute("results", "With a total of " + userTotal + "kg at " + weightclass.getBodyweight() + ", you qualify for the following events:");}
 
         return "Home/Results";
     }
@@ -86,7 +93,7 @@ public class HomeController {
     public String bootStrap(Model model) {
         Weightclass weightclass = weightclassDAO.findOne(15);
 
-        int userTotal = 300;
+        int userTotal = 250;
         int ratioAR = Math.round((userTotal*100)/weightclass.getAmericanRecord());
         int ratioWR = Math.round((userTotal*100)/weightclass.getWorldRecord());
 

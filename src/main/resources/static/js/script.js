@@ -26,30 +26,38 @@ document.getElementById("metric").setAttribute("value", kgs);
 
 function populateProgressBar(){
 
-
-
+    var eventMessages = document.querySelectorAll("[id='eventMessage']");
     var userTotal = document.getElementById("userTotal").value;
     var eventQTs = document.querySelectorAll("[id='eventQT']");
     var labels = document.querySelectorAll("[id='label']");
-    var hello = 0;
 
     for(var i = 0; i < eventQTs.length; i++) {
         var eventQT = eventQTs[i].getAttribute("value");
         var ratio = Math.round((userTotal*100)/eventQT);
         var event = labels[i].getAttribute("value");
-        labels[i].innerHTML = event + '          ' + "<small>" + ratio + '% of qualifying total' + "</small>";
+        eventQTs[i].setAttribute("role", "progressbar");
         if(ratio>=100){
+          labels[i].innerHTML = event + '          ' + "<small>" + ratio + '% of qualifying total' + "</small>";
+          labels[i].setAttribute("style", "color:green; font-weight:bold")
           eventQTs[i].setAttribute("class", "progress-bar progress-bar-success");
           eventQTs[i].setAttribute("style", "width:" + ratio + "%");
           eventQTs[i].setAttribute("aria-valuenow", userTotal);
           eventQTs[i].setAttribute("aria-valuemax", userTotal);
           eventQTs[i].innerHTML = userTotal + "kg out of " + eventQT + "kg";
+          eventMessages[i].innerHTML = "Qualified!";
+          eventMessages[i].setAttribute("style", "font-weight:bold; color:green");
+
 
       } else {
+          labels[i].innerHTML = event + '          ' + "<small>" + ratio + '% of qualifying total' + "</small>";
+          labels[i].setAttribute("style", "color:red; font-weight:bold")
+          eventQTs[i].setAttribute("class", "progress-bar");
           eventQTs[i].setAttribute("style", "width:" + ratio + "%");
           eventQTs[i].setAttribute("aria-valuenow", userTotal);
           eventQTs[i].setAttribute("aria-valuemax", eventQT);
           eventQTs[i].innerHTML = userTotal + "kg out of " + eventQT + "kg";
+          eventMessages[i].innerHTML = "Not yet qualified! " + (eventQT-userTotal) + "kgs to go!";
+          eventMessages[i].setAttribute("style", "font-weight:bold; color:red");
       }
 }
 }

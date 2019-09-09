@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Controller
 @RequestMapping("view")
 public class DataViewingController {
@@ -27,7 +30,15 @@ public class DataViewingController {
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String index(Model model) {
-        model.addAttribute("weightclasses", weightclassDAO.findAll());
+        List<Weightclass> womens = new ArrayList<>();
+        List<Weightclass> mens = new ArrayList<>();
+        for(Weightclass weightclass: weightclassDAO.findAll()) {
+            if(weightclass.getGender().equals("F")) {
+                womens.add(weightclass);
+            } else {mens.add(weightclass); }
+        }
+        model.addAttribute("womens", womens);
+        model.addAttribute("mens", mens);
         return "DataView/Index";
     }
 

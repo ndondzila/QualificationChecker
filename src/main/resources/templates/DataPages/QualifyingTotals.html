@@ -17,7 +17,7 @@
     </tr>
     <tr th:each="weightclass : ${hasQT}">
         <td th:text="${weightclass.toString()}"></td>
-        <td th:text="${weightclass.getEventQualifyingTotal(event)}"></td>
+        <td th:text="${weightclass.getEventQualifyingTotalString(event)}"></td>
     </tr>
 </table>
 <div th:if="${showForm}">

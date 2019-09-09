@@ -8,17 +8,29 @@
 <nav th:replace="fragments :: navigation"></nav>
 
 <h1 th:text="${title}">View Data</h1>
+<br/>
+<br/>
 
 <h2><a href="/view/totals" style="font-weight:bold">View all qualifying totals</a></h2>
 
-<table>
-    <tr>
-        <th><h4>View data by weightclass</h4></th>
-    </tr>
-    <tr th:each="weightclass : ${weightclasses}">
-        <td><a th:href="'/view/weightclass/'+ ${weightclass.id}" th:text="${weightclass.toString()}"></a></td>
-    </tr>
-</table>
+<br/>
+<br/>
+
+<h3>View data by weightclass</h3>
+<br/>
+<div class="row">
+    <div class="col-sm-3">
+        <dl th:each="weightclass:${womens}">
+            <dt><a th:href="'/view/weightclass/'+ ${weightclass.id}" th:text="${weightclass.toString()}"></a></dt>
+        </dl>
+    </div>
+    <div class="col-sm-3">
+    <dl th:each="weightclass:${mens}">
+        <dt><a th:href="'/view/weightclass/'+ ${weightclass.id}" th:text="${weightclass.toString()}"></a></dt>
+    </dl>
+    </div>
+    <div class="col-sm-6"></div>
+</div>
 
 
 </body>

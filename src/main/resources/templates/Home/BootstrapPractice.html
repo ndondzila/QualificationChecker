@@ -7,23 +7,40 @@
 <nav th:replace="fragments :: navigation"></nav>
 
 <body class="container text-center" onload="populateProgressBar()">
-<br/>
-<h3 th:text="${userTotal} + 'kg total'"></h3>
-<h3 th:text="${weightclass.toString()}"></h3>
 
 <ul style="display:none">
     <li th:value="${userTotal}" id="userTotal"></li>
 </ul>
 
-<h4 id="check"></h4>
+<br/>
+<br/>
+<br/>
+
+<h2 th:text="${results}" style="font-weight:bold"></h2>
+<br/>
+<br/>
+
+<div class="row" th:each="event:${events}">
+    <div class="col-sm-2">
+        <dl>
+            <dt th:text="${event.toString()}"></dt>
+            <dd id="eventMessage"></dd>
+        </dl>
+    </div>
+    <div class="col-sm-10">
+        <label id="label" th:value="${event.toString()}"></label>
+        <div class="progress">
+            <div id="eventQT" th:value="${event.getQualifyingTotalByWeightclass(weightclass)}"></div></div>
+    </div>
+    <br/>
+    <br/>
+    <br/>
+
+</div>
+
 
 <div th:each="event:${events}">
-    <label id="label" th:value="${event.toString()}"></label>
-    <div id="eventQT" th:value="${event.getQualifyingTotalByWeightclass(weightclass)}"></div>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
+
 </div>
 <br/>
 
