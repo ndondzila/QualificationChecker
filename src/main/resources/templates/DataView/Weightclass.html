@@ -10,7 +10,7 @@
 
 <h1 th:text="'Data for the ' + ${weightclass.toString()} + ' Weightclass'"></h1>
 
-<table class="table">
+<table class="table table-bordered table-hover table-striped">
     <tr>
         <th th:each="event:${events}" th:text="${event.toString()}"></th>
         <th>American Record</th>

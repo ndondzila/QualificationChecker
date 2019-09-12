@@ -1,31 +1,53 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/" xmlns="http://www.w3.org/1999/html">
 
-<head th:replace="fragments :: head">
-</head>
+<head th:replace="fragments :: head"></head>
+<nav th:replace="fragments :: navigation"></nav>
 
-<body class="container">
+<body class="container-fluid text-left">
+<div th:replace="fragments :: page_header"></div>
 
-<nav th:replace="fragments :: data_navigation"></nav>
-
-<h1>Weightlifter class entry page</h1>
 <h2 th:text="${complete}" style="color:red; font-weight:bold"></h2>
 
-<table class="table table-bordered table-hover table-striped">
-    <tr>
-        <th>Gender</th>
-        <th>Weightclass</th>
-        <th>American record</th>
-        <th>World record</th>
-    </tr>
+<br/>
 
-    <tr th:each="weightclass : ${weightclasses}">
-        <td th:text="${weightclass.gender}"></td>
-        <td th:text="${weightclass.bodyweight}"></td>
-        <td th:text="${weightclass.americanRecord}"></td>
-        <td th:text="${weightclass.worldRecord}"></td>
-    </tr>
-</table>
+<div class="row">
+<div class="col-sm-4">
+    <label for="womens" style="font-weight:bold">Women's</label>
+    <br/>
+    <table class="table table-bordered table-hover table-striped" id="womens">
+        <tr>
+            <th>Weightclass</th>
+            <th>American record</th>
+            <th>World record</th>
+        </tr>
+        <tr th:each="weightclass : ${womens}">
+            <td th:text="${weightclass.bodyweight}"></td>
+            <td th:text="${weightclass.americanRecord}+'kg'"></td>
+            <td th:text="${weightclass.worldRecord}+'kg'"></td>
+        </tr>
+    </table>
+</div>
+    <div class="col-sm-1"></div>
+<div class="col-sm-4">
+    <label for="mens" style="font-weight:bold">Men's</label>
+    <br/>
+    <table class="table table-bordered table-hover table-striped" id="mens">
+        <tr>
+            <th>Weightclass</th>
+            <th>American record</th>
+            <th>World record</th>
+        </tr>
+        <tr th:each="weightclass : ${mens}">
+            <td th:text="${weightclass.bodyweight}"></td>
+            <td th:text="${weightclass.americanRecord}+'kg'"></td>
+            <td th:text="${weightclass.worldRecord}+'kg'"></td>
+        </tr>
+    </table>
+</div>
+    <div class="col-sm-3"></div>
+</div>
+
 <div th:if="${showForm}">
 <form method="post" th:object="${weightclass}" style="width:600px;">
 

@@ -11,59 +11,62 @@
       margin-bottom: 0;
       border-radius: 0;
     }
-
   </style>
 </head>
 
+// TODO: edit all HTML files to have consistent style and thoroughly utilize the 'boiler plate' fragments document.
+
 <body>
-<div th:fragment="conversion">
+
+<div class="container" th:fragment="page_header">
+    <div class="page-header">
+        <h1 th:text="${title}"></h1>
+    </div>
+    <br/>
+</div>
+
+<div th:fragment="conversion" class="well">
     <form>
+        <div class="form-group">
         <label for="imperial">Pounds:</label>
-        <input type="text" id="imperial" value="0" oninput="convert()"/>
+        <input type="text" id="imperial" value="0" oninput="convertImp()" class="form-control"/>
+        </div>
         <br/>
+        <div class="form-group">
         <label for="metric">Kilograms:</label>
-        <input type="text" id="metric"/>
+        <input type="text" id="metric" value="0" oninput="convertMet()" class="form-control"/>
+        </div>
     </form>
 </div>
+
 
 <nav class="navbar navbar-inverse" th:fragment="navigation">
     <div class="container-fluid">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
+            <a class="navbar-brand" style="font-weight:bold; color:white">Qualification Checker</a>
         </div>
-        <div class="collapse navbar-collapse" id="myNavbar">
-            <ul class="nav navbar-nav">
-                <li class="active"><a href="/">Home</a></li>
-                <li><a href="/view">View Data</a></li>
-                <li><a href="/data/event">Update Events or Qualifying Totals</a></li>
-            </ul>
-        </div>
+        <ul class="nav navbar-nav">
+            <li><a href="/">Home</a></li>
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown">View Data
+                    <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="/view/totals">All Qualifying Totals</a></li>
+                    <li><a href="/view">By individual Weightclass</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown">Edit Data
+                    <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="/data/event">Add Event/Update Qualifying Totals</a></li>
+                    <li><a href="/data/weightclass">Weightclasses</a></li>
+                </ul>
+            </li>
+        </ul>
     </div>
 </nav>
-
-<nav class="navbar navbar-inverse" th:fragment="data_navigation">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#dataNavbar">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-        </div>
-        <div class="collapse navbar-collapse" id="dataNavbar">
-            <ul class="nav navbar-nav">
-                <li class="active"><a href="/">Home</a></li>
-                <li><a href="/data/weightclass">Weightclasses</a></li>
-                <li><a href="/data/event">Events/Qualifying Totals</a></li>
-            </ul>
-        </div>
-    </div>
-</nav>
-
 </body>
+
 <script src="js/script.js"></script>
 </html>

@@ -1,22 +1,20 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 
-<head th:replace="fragments :: head">
-</head>
-
+<head th:replace="fragments :: head"></head>
 <nav th:replace="fragments :: navigation"></nav>
 
-<body class="container text-center" onload="populateProgressBar()">
+<body class="container-fluid text-center" onload="populateProgressBar()">
+<div th:replace="fragments :: page_header"></div>
 
 <ul style="display:none">
     <li th:value="${userTotal}" id="userTotal"></li>
 </ul>
 
-<br/>
-<br/>
-<br/>
 
 <h2 th:text="${results}"></h2>
+<br/>
+<br/>
 
 <div class="row" th:each="event:${events}">
     <div class="col-sm-2">
@@ -36,13 +34,11 @@
 
 </div>
 
-
-<div th:each="event:${events}">
-
-</div>
 <br/>
 
-<label for="progressAmericanRecord" th:text="${ratioAR}+'% of the '+ ${weightclass.getAmericanRecord()}+'kg American record'"></label>
+<h3>The following graphs compare your total to the American and World Record Totals:</h3>
+<br/>
+<label for="progressAmericanRecord" th:text="${ratioAR}+'% of the '+ ${weightclass.getAmericanRecord()}+'kg American Record'"></label>
 <div class="progress" id="progressAmericanRecord">
     <div class="progress-bar progress-bar-info" role="progressbar" th:attr="style='width:'+${ratioAR}+'%'"
          th:text="${userTotal}+ 'kg'">
@@ -51,8 +47,7 @@
 
 <br/>
 
-
-<label for="progressWorldRecord" th:text="${ratioWR}+'% of the ' + ${weightclass.getWorldRecord()} + ' kg world record'"></label>
+<label for="progressWorldRecord" th:text="${ratioWR}+'% of the ' + ${weightclass.getWorldRecord()} + 'kg World Record'"></label>
 <div class="progress" id="progressWorldRecord">
     <div class="progress-bar progress-bar-info" role="progressbar" th:attr="style='width:'+${ratioWR}+'%'"
          th:text="${userTotal}+'kg'">

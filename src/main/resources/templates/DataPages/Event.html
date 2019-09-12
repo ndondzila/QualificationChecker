@@ -1,14 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/" xmlns="http://www.w3.org/1999/html">
 
-<head th:replace="fragments :: head">
-</head>
+<head th:replace="fragments :: head"></head>
+<nav th:replace="fragments :: navigation"></nav>
 
-<body class="container">
 
-<nav th:replace="fragments :: data_navigation"></nav>
-
-<h1>Event information entry page</h1>
+<body class="container-fluid text-left">
+<div th:replace="fragments :: page_header"></div>
 
 <table class="table table-bordered table-hover table-striped">
     <tr>

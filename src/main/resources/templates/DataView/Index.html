@@ -1,33 +1,41 @@
-
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
+
 <head th:replace="fragments :: head"></head>
-
-<body class="container">
-
 <nav th:replace="fragments :: navigation"></nav>
 
-<h1 th:text="${title}">View Data</h1>
-<br/>
-<br/>
+<body class="container-fluid text-left">
+<div th:replace="fragments :: page_header"></div>
+
 
 <h2><a href="/view/totals" style="font-weight:bold">View all qualifying totals</a></h2>
 
-<br/>
 <br/>
 
 <h3>View data by weightclass</h3>
 <br/>
 <div class="row">
     <div class="col-sm-3">
-        <dl th:each="weightclass:${womens}">
-            <dt><a th:href="'/view/weightclass/'+ ${weightclass.id}" th:text="${weightclass.toString()}"></a></dt>
-        </dl>
+        <table class="table table-bordered table-hover table-striped">
+            <tr>
+                <th>Women's</th>
+            </tr>
+            <br/>
+            <tr th:each="weightclass : ${womens}">
+                <td><a th:href="'/view/weightclass/'+ ${weightclass.id}" th:text="${weightclass.toString()}"></a></td>
+            </tr>
+        </table>
     </div>
     <div class="col-sm-3">
-    <dl th:each="weightclass:${mens}">
-        <dt><a th:href="'/view/weightclass/'+ ${weightclass.id}" th:text="${weightclass.toString()}"></a></dt>
-    </dl>
+        <table class="table table-bordered table-hover table-striped">
+            <tr>
+                <th>Men's</th>
+            </tr>
+            <br/>
+            <tr th:each="weightclass : ${mens}">
+                <td><a th:href="'/view/weightclass/'+ ${weightclass.id}" th:text="${weightclass.toString()}"></a></td>
+            </tr>
+        </table>
     </div>
     <div class="col-sm-6"></div>
 </div>

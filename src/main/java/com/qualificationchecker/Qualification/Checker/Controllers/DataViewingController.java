@@ -1,9 +1,9 @@
 package com.qualificationchecker.Qualification.Checker.Controllers;
 
-
 import com.qualificationchecker.Qualification.Checker.Models.Data.EventDAO;
 import com.qualificationchecker.Qualification.Checker.Models.Data.QualifyingTotalDAO;
 import com.qualificationchecker.Qualification.Checker.Models.Data.WeightclassDAO;
+import com.qualificationchecker.Qualification.Checker.Models.Event;
 import com.qualificationchecker.Qualification.Checker.Models.Weightclass;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,6 +30,7 @@ public class DataViewingController {
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String index(Model model) {
+
         List<Weightclass> womens = new ArrayList<>();
         List<Weightclass> mens = new ArrayList<>();
         for(Weightclass weightclass: weightclassDAO.findAll()) {
@@ -37,6 +38,7 @@ public class DataViewingController {
                 womens.add(weightclass);
             } else {mens.add(weightclass); }
         }
+        model.addAttribute("title", "Individual weightclass data");
         model.addAttribute("womens", womens);
         model.addAttribute("mens", mens);
         return "DataView/Index";
@@ -45,8 +47,14 @@ public class DataViewingController {
     @RequestMapping(value = "totals", method = RequestMethod.GET)
     public String displayTotals(Model model) {
 
+        List<Event> events = new ArrayList<>();
+        for(Event event: eventDAO.findAll()) {
+            if (event.hasQTs()) {
+                events.add(event);
+            } }
+        model.addAttribute("title", "All current qualifying totals");
+        model.addAttribute("events", events);
         model.addAttribute("weightclasses", weightclassDAO.findAll());
-        model.addAttribute("events", eventDAO.findAll());
         model.addAttribute("title", "View all qualifying totals");
 
         return "DataView/Totals";
@@ -57,7 +65,15 @@ public class DataViewingController {
 
         Weightclass weightclass = weightclassDAO.findOne(weightclassId);
 
-        model.addAttribute("events", eventDAO.findAll());
+        List<Event> events = new ArrayList<>();
+
+        for(Event event: eventDAO.findAll()) {
+            if (weightclass.hasQualifyingTotal(event)) {
+                events.add(event);
+            }
+        }
+        model.addAttribute("title", weightclass.toString() +" weightclass data");
+        model.addAttribute("events", events);
         model.addAttribute("weightclass", weightclass);
 
         return "DataView/Weightclass";

@@ -35,8 +35,19 @@ public class DataEntryController {
     @RequestMapping(value = "weightclass", method = RequestMethod.GET)
     public String weightlifter(Model model) {
 
+        model.addAttribute("title", "Weightclass Information");
+
         model.addAttribute("weightclasses", weightclassDAO.findAll());
         if(weightclassDAO.count()==20) {
+            List<Weightclass> womens = new ArrayList<>();
+            List<Weightclass> mens = new ArrayList<>();
+            for(Weightclass weightclass: weightclassDAO.findAll()) {
+                if(weightclass.getGender().equals("F")) {
+                    womens.add(weightclass);
+                } else {mens.add(weightclass); }
+            }
+            model.addAttribute("womens", womens);
+            model.addAttribute("mens", mens);
             model.addAttribute("complete", "All weightclasses have been entered!");
             model.addAttribute("showForm", Boolean.FALSE);
             return "DataPages/Weightclass";}
@@ -59,6 +70,7 @@ public class DataEntryController {
     @RequestMapping(value = "event", method = RequestMethod.GET)
     public String displayEvent(Model model) {
 
+        model.addAttribute("title", "Add Event/Update qualifying totals");
         model.addAttribute("events", eventDAO.findAll());
         model.addAttribute(new Event());
 
@@ -80,6 +92,7 @@ public class DataEntryController {
             if(duplicateEvent) {
                 model.addAttribute("duplicate", "Event already entered!"); }
 
+            model.addAttribute("title", "Add Event/Update qualifying totals");
             model.addAttribute("events", eventDAO.findAll());
 
             return "DataPages/Event"; }
@@ -94,7 +107,7 @@ public class DataEntryController {
     public String qualifyingTotals(Model model, @PathVariable int eventId) {
 
         Event event = eventDAO.findOne(eventId);
-
+        model.addAttribute("title", "Update qualifying totals for " + event.toString());
         List<Weightclass> hasQT = new ArrayList<>();
         List<Weightclass> noQT = new ArrayList<>();
         Iterable<Weightclass> weightclassIterable = weightclassDAO.findAll();
@@ -107,7 +120,9 @@ public class DataEntryController {
         model.addAttribute("hasQT", hasQT);
 
         if(hasQT.size() == 20){
+
             model.addAttribute("title",  event.toString() + " qualifying totals:");
+            model.addAttribute("event", event);
             model.addAttribute("complete", "All qualifying totals have been entered for this event!");
             model.addAttribute("showForm", Boolean.FALSE);
             return "DataPages/QualifyingTotals";
@@ -115,7 +130,6 @@ public class DataEntryController {
 
         AddQualifyingTotalsForm form = new AddQualifyingTotalsForm(event,0);
         model.addAttribute("event", event);
-        model.addAttribute("title", "Update " + event.toString() + " qualifying totals:");
         model.addAttribute("noQT", noQT);
         model.addAttribute("showForm", Boolean.TRUE);
         model.addAttribute("form", form);
@@ -129,7 +143,7 @@ public class DataEntryController {
         Event event = eventDAO.findOne(form.getEventId());
 
         if(errors.hasErrors()) {
-
+            model.addAttribute("title", "Update qualifying totals for " + event.toString());
             return "DataPages/QualifyingTotals";
         }
 

@@ -12,7 +12,6 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -38,10 +37,11 @@ public class HomeController {
                 womens.add(weightclass);
             } else {mens.add(weightclass); }
         }
+
+        model.addAttribute("title", "Qualification Checker");
         model.addAttribute("womens", womens);
         model.addAttribute("mens", mens);
         model.addAttribute("weightclasses", weightclassDAO.findAll());
-        model.addAttribute("title", "Qualification Checker");
         model.addAttribute(new CheckUserTotalForm());
 
         return "Home/Home";
@@ -69,6 +69,13 @@ public class HomeController {
         int userTotal = checkUserTotalForm.getUserTotal();
 
         Weightclass weightclass = weightclassDAO.findOne(checkUserTotalForm.getWeightlifterId());
+        List<Event> events = new ArrayList<>();
+
+        for(Event event: eventDAO.findAll()) {
+            if (weightclass.hasQualifyingTotal(event)) {
+                events.add(event);
+            }
+        }
         List<Event> qualified_events = new ArrayList<>(weightclass.getQualifiedEvents(userTotal));
 
         int ratioAR = Math.round((userTotal*100)/weightclass.getAmericanRecord());
@@ -78,31 +85,15 @@ public class HomeController {
         model.addAttribute("userTotal", userTotal);
         model.addAttribute("ratioAR", ratioAR);
         model.addAttribute("ratioWR", ratioWR);
-        model.addAttribute("events", eventDAO.findAll());
+        model.addAttribute("events", events);
+        model.addAttribute("title", "Results");
 
         if(qualified_events.size()<1) {
-            model.addAttribute("results", "You do yet not qualify, but here is some information!"); }
+            model.addAttribute("results", "You do not yet qualify, but here is some information!"); }
 
         else {
             model.addAttribute("results", "With a total of " + userTotal + "kg at " + weightclass.getBodyweight() + ", you qualify for the following events:");}
 
         return "Home/Results";
-    }
-
-    @RequestMapping(value = "BS", method = RequestMethod.GET)
-    public String bootStrap(Model model) {
-        Weightclass weightclass = weightclassDAO.findOne(15);
-
-        int userTotal = 250;
-        int ratioAR = Math.round((userTotal*100)/weightclass.getAmericanRecord());
-        int ratioWR = Math.round((userTotal*100)/weightclass.getWorldRecord());
-
-        model.addAttribute("weightclass", weightclass);
-        model.addAttribute("userTotal", userTotal);
-        model.addAttribute("ratioAR", ratioAR);
-        model.addAttribute("ratioWR", ratioWR);
-        model.addAttribute("events", eventDAO.findAll());
-
-        return "Home/BootstrapPractice";
     }
 }

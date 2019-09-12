@@ -48,12 +48,20 @@ public class Event {
 
     public String toString() { return year + " " + name; }
 
-    public String getQualifyingTotalByWeightclass(Weightclass weightclass) {
-        String eventQualifyingTotal = "";
+    public Boolean hasQTs(){
+
+        if(this.qualifyingTotals.size()<20){
+            return Boolean.FALSE;
+        } else {
+            return Boolean.TRUE;
+        } }
+
+    public int getQualifyingTotalByWeightclass(Weightclass weightclass) {
+        int eventQualifyingTotal = 0;
         for(int i = 0; i < qualifyingTotals.size(); i++) {
             QualifyingTotal qualifyingTotal = qualifyingTotals.get(i);
             if(qualifyingTotal.getWeightclass().equals(weightclass)) {
-                eventQualifyingTotal = qualifyingTotal.toString();
+                eventQualifyingTotal = qualifyingTotal.getQualifyingTotal();
             }
         }
         return eventQualifyingTotal;

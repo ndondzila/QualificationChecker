@@ -18,10 +18,15 @@ for(var i = 0; i < m.length; i++)
      }
      }
 
-function convert() {
+function convertImp() {
 var lbs = Number(document.getElementById("imperial").value);
-var kgs = Math.round(lbs * 0.453592);
+var kgs = (lbs * 0.453592).toFixed(2);
 document.getElementById("metric").setAttribute("value", kgs);
+}
+function convertMet() {
+var kgs = Number(document.getElementById("metric").value);
+var lbs = (kgs * 2.20462).toFixed(2);
+document.getElementById("imperial").setAttribute("value", lbs);
 }
 
 function populateProgressBar(){
@@ -37,26 +42,26 @@ function populateProgressBar(){
         var event = labels[i].getAttribute("value");
         eventQTs[i].setAttribute("role", "progressbar");
         if(ratio>=100){
-          labels[i].innerHTML = event + '          ' + "<small>" + ratio + '% of qualifying total' + "</small>";
+          labels[i].innerHTML = ratio + '% of ' + eventQT + 'kg qualifying total';
           labels[i].setAttribute("style", "color:green; font-weight:bold")
           eventQTs[i].setAttribute("class", "progress-bar progress-bar-success");
           eventQTs[i].setAttribute("style", "width:" + ratio + "%");
           eventQTs[i].setAttribute("aria-valuenow", userTotal);
           eventQTs[i].setAttribute("aria-valuemax", userTotal);
-          eventQTs[i].innerHTML = userTotal + "kg out of " + eventQT + "kg";
+          eventQTs[i].innerHTML = (userTotal-eventQT) + "kgs over";
           eventMessages[i].innerHTML = "Qualified!";
           eventMessages[i].setAttribute("style", "font-weight:bold; color:green");
 
 
       } else {
-          labels[i].innerHTML = event + '          ' + "<small>" + ratio + '% of qualifying total' + "</small>";
+          labels[i].innerHTML = ratio + '% of ' + eventQT + 'kg qualifying total';
           labels[i].setAttribute("style", "color:red; font-weight:bold")
           eventQTs[i].setAttribute("class", "progress-bar");
           eventQTs[i].setAttribute("style", "width:" + ratio + "%");
           eventQTs[i].setAttribute("aria-valuenow", userTotal);
           eventQTs[i].setAttribute("aria-valuemax", eventQT);
-          eventQTs[i].innerHTML = userTotal + "kg out of " + eventQT + "kg";
-          eventMessages[i].innerHTML = "Not yet qualified! " + (eventQT-userTotal) + "kgs to go!";
+          eventQTs[i].innerHTML = (eventQT-userTotal) + "kgs to go!";
+          eventMessages[i].innerHTML = "Not yet qualified! ";
           eventMessages[i].setAttribute("style", "font-weight:bold; color:red");
       }
 }

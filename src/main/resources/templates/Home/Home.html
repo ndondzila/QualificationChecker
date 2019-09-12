@@ -1,20 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 
-<head th:replace="fragments :: head">
-</head>
-
+<head th:replace="fragments :: head"></head>
 <nav th:replace="fragments :: navigation"></nav>
 
-<body class="container text-center">
+<body class="container-fluid text-left">
+<div th:replace="fragments :: page_header"></div>
 
-<h1 th:text="${title}">Default Title</h1>
-<br/>
+<div >
 
-
-<div class="container-fluid text-center">
-
-    <div class="col-sm-2 text-left" th:replace="fragments :: conversion"></div>
 
     <div class="row content">
 
@@ -24,7 +18,7 @@
 
         <div class="form-group">
             <label>Competition gender:</label>
-            <select id="gender" name="gender" onchange="toggleGender()">
+            <select id="gender" name="gender" onchange="toggleGender()" class="form-control">
                 <option value="women" selected="selected">Women's</option>
                 <option value="men">Men's</option>
             </select>
@@ -32,7 +26,7 @@
 
         <div class="form-group">
             <label th:for="weightlifterId">Weight class:</label>
-            <select th:field="*{weightlifterId}">
+            <select class="form-control" th:field="*{weightlifterId}">
                 <option th:value="0">Please choose:</option>
                 <option id="w" style="display:block" th:each="weightclass : ${womens}"
                         th:value="${weightclass.id}"
@@ -53,7 +47,13 @@
         <input type="submit" value="Check if qualified"/>
 
     </form>
+
         </div>
+
+        <div class="col-sm-2 text-left" >
+            <div th:replace="fragments :: conversion"></div>
+        </div>
+
     </div>
 </div>
 
