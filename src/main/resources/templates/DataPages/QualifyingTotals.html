@@ -7,6 +7,9 @@
 <body class="container-fluid text-left">
 <div th:replace="fragments :: page_header"></div>
 
+<div class="row content">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-8">
 <h2 th:text="${complete}" style="color:red; font-weight:bold"></h2>
 
 <table class="table table-bordered table-hover table-striped">
@@ -38,6 +41,8 @@
     <input type="submit" value="Update qualifying totals"/>
 
 </form>
+</div>
+    </div>
 </div>
 
 </body>

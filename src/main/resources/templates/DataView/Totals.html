@@ -7,6 +7,9 @@
 <body class="container-fluid text-left">
 <div th:replace="fragments :: page_header"></div>
 
+<div class="row content">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-8">
 <table class="table table-bordered table-hover table-striped">
     <tr>
         <th>Weightclass</th>
@@ -17,6 +20,7 @@
         <td th:each="event:${events}" th:text="${weightclass.getEventQualifyingTotalString(event)}"></td>
     </tr>
 </table>
-
+    </div>
+</div>
 </body>
 </html>

@@ -16,6 +16,7 @@ for(var i = 0; i < m.length; i++)
      } else {
           m[i].style.display = 'block';
      }
+document.getElementById("empty").setAttribute("selected", "selected");
      }
 
 function convertImp() {
@@ -64,5 +65,37 @@ function populateProgressBar(){
           eventMessages[i].innerHTML = "Not yet qualified! ";
           eventMessages[i].setAttribute("style", "font-weight:bold; color:red");
       }
+}}
+
+function populateTotal(){
+    var snatch = Number(document.getElementById("snatch").value);
+    var jerk = Number(document.getElementById("jerk").value);
+    var total = Math.round(snatch + jerk);
+    var imperial = document.getElementById("kilogram").checked;
+
+    document.getElementById("calculatedTotal").setAttribute("style", "border: medium rounded;");
+
+    if(snatch<1||jerk<1){
+        document.getElementById("calculatedTotal").innerHTML = "Both lifts needed in order to calculate a total!";
+        document.getElementById("calculatedTotal").setAttribute("style", "color: red; border: medium rounded;");
+    } else {
+        if(imperial){
+            document.getElementById("userTotal").setAttribute("value", total);
+            document.getElementById("calculatedTotal").innerHTML = "Your calculated total in KGs is " + total;
+        } else {
+            document.getElementById("userTotal").setAttribute("value", Math.round(total * 0.453592));
+            document.getElementById("calculatedTotal").innerHTML = "Your calculated total in KGs is " + Math.round(total * 0.453592);
+        }}
 }
+
+function displayOverMessage(){
+    var overWR = document.getElementById("overWRJS");
+    var overAR = document.getElementById("overARJS").value;
+
+    if(overWR=='true'){
+           alert("Perhaps you entered your total in pounds instead of kilograms? You entered a total over the World Record in your weightclass and I can safely assume a World Record holder would not be concerned with their USAW event qualification status.  Enter your actual total in kilograms please!")
+         $("#overWR").modal();
+    } else if (overAR=='true') {
+        $("#overAR").modal();
+    }
 }

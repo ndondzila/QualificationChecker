@@ -23,29 +23,38 @@
             <dd id="eventMessage"></dd>
         </dl>
     </div>
-    <div class="col-sm-10">
+    <div class="col-sm-9">
         <label id="label" th:value="${event.toString()}"></label>
         <div class="progress">
             <div id="eventQT" th:value="${event.getQualifyingTotalByWeightclass(weightclass)}"></div></div>
     </div>
+    <div class="col-sm-1"></div>
     <br/>
     <br/>
     <br/>
-
 </div>
 
 <br/>
-
 <h3>The following graphs compare your total to the American and World Record Totals:</h3>
 <br/>
+
+<div class="row">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-10">
 <label for="progressAmericanRecord" th:text="${ratioAR}+'% of the '+ ${weightclass.getAmericanRecord()}+'kg American Record'"></label>
 <div class="progress" id="progressAmericanRecord">
     <div class="progress-bar progress-bar-info" role="progressbar" th:attr="style='width:'+${ratioAR}+'%'"
          th:text="${userTotal}+ 'kg'">
     </div>
 </div>
+    </div>
+    <div class="col-sm-1"></div>
+</div>
 
 <br/>
+<div class="row">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-10">
 
 <label for="progressWorldRecord" th:text="${ratioWR}+'% of the ' + ${weightclass.getWorldRecord()} + 'kg World Record'"></label>
 <div class="progress" id="progressWorldRecord">
@@ -53,6 +62,10 @@
          th:text="${userTotal}+'kg'">
     </div>
 </div>
+    </div>
+    <div class="col-sm-1"></div>
+</div>
+
 
 </body>
 <script src="js/script.js"></script>

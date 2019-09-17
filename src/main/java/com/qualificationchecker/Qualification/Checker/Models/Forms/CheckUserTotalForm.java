@@ -8,11 +8,9 @@ import javax.validation.constraints.NotNull;
 
 public class CheckUserTotalForm {
 
-    private Iterable<Weightclass> weightlifters;
-
     @NotNull
     @Min(value=1, message = "Please select a weightclass!")
-    private int weightlifterId;
+    private int weightclassId;
 
     @NotNull
     @Min(value=1, message = "Please enter a total!")
@@ -20,14 +18,13 @@ public class CheckUserTotalForm {
 
     public CheckUserTotalForm (){}
 
-    public CheckUserTotalForm (Iterable<Weightclass> weightlifters, int userTotal) {
-        this.weightlifters = weightlifters;
+    public CheckUserTotalForm (int weightclassId, int userTotal) {
+        this.weightclassId = weightclassId;
         this.userTotal = userTotal;
     }
 
-    public int getWeightlifterId() { return weightlifterId; }
-    public void setWeightlifterId(int weightlifterId) { this.weightlifterId = weightlifterId; }
-    public Iterable<Weightclass> getWeightlifters() { return weightlifters; }
+    public int getWeightclassId() { return weightclassId;}
+    public void setWeightclassId(int weightclassId) { this.weightclassId = weightclassId;}
     public int getUserTotal() { return userTotal; }
     public void setUserTotal(int userTotal) { this.userTotal = userTotal; }
 

@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/" xmlns="http://www.w3.org/1999/html">
 
-<head th:replace="fragments :: head">
-</head>
-
-<body class="container">
-
+<head th:replace="fragments :: head"></head>
 <nav th:replace="fragments :: navigation"></nav>
 
-<h1 th:text="'Data for the ' + ${weightclass.toString()} + ' Weightclass'"></h1>
+<body class="container-fluid text-left">
+<div th:replace="fragments :: page_header"></div>
+
+<div class="row content">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-8">
 
 <table class="table table-bordered table-hover table-striped">
     <tr>
@@ -23,6 +24,8 @@
         <td th:text="${weightclass.getWorldRecord()} + 'kg'"></td>
     </tr>
 </table>
+    </div>
+</div>
 
 
 </body>
